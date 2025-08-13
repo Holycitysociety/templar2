@@ -3,7 +3,11 @@
   --white:#ffffff;
   --ink:#1d1d1f;
   --container: 1200px;
-  --header-h: 68px; /* desktop default */
+  --header-h: 68px;
+
+  /* hero spacing (shared desktop/mobile via clamp) */
+  --hero-pt: clamp(128px, 18vw, 220px);
+  --hero-pb: clamp(120px, 16vw, 200px);
 }
 
 *{box-sizing:border-box}
@@ -13,12 +17,11 @@ body{
   color: var(--ink);
   background: var(--white);
   line-height: 1.45;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 24px;}
@@ -30,38 +33,52 @@ body{
   height: var(--header-h);
   display:flex; align-items:center;
 }
-
 .header-inner{
   display:grid;
   grid-template-columns: auto 1fr auto; /* logo | space | menu */
   align-items:center; gap:16px;
 }
-
 .brand-logo{height:32px;width:auto;display:block;}
 
 .menu-toggle{
-  margin-left:auto;
-  background:transparent; border:none; color:var(--ink);
+  margin-left:auto; background:transparent; border:none; color:var(--ink);
   display:flex; align-items:center; padding:6px; cursor:pointer;
 }
-.menu-icon{ width:22px; height:22px; } /* smaller than before */
-
+.menu-icon{ width:22px; height:22px; }
 .nav{display:none}
 
-/* Lay out rest of page to bottom */
+/* Page body should reach bottom */
 main{display:flex;flex-direction:column;min-height:calc(100dvh - var(--header-h));}
 
-/* HERO — doubled vertical whitespace vs previous */
+/* === TEXT HERO === */
 .hero{
   background: var(--white);
   display:flex; align-items:center; justify-content:center;
-  padding-top: clamp(144px, 20vw, 240px);   /* doubled */
-  padding-bottom: clamp(136px, 18vw, 224px);/* doubled */
+  padding-top: var(--hero-pt);
+  padding-bottom: var(--hero-pb);
 }
-.hero-inner{text-align:center;}
-.hero-logo{
-  width: clamp(220px, 34vw, 420px);
-  height:auto;
+.hero-inner{ text-align:center; }
+
+/* Wordmark styling (elegant sans-serif) */
+.wordmark{
+  margin:0;
+  line-height: 1.15;
+  letter-spacing: .02em;
+}
+.wm-line1{
+  display:block;
+  font-weight: 600;
+  font-size: clamp(26px, 4.2vw, 48px);
+  letter-spacing: .18em;           /* wide tracking for the top line */
+}
+.wm-line2{
+  display:block;
+  margin-top: .75rem;
+  font-weight: 400;
+  font-size: clamp(11px, 1.5vw, 14px);
+  letter-spacing: .46em;           /* elegant spaced motto */
+  text-transform: uppercase;       /* canonical look */
+  opacity: .8;
 }
 
 /* BLACK section fills the remainder to the bottom */
@@ -76,33 +93,28 @@ main{display:flex;flex-direction:column;min-height:calc(100dvh - var(--header-h)
 /* -------- Mobile tweaks -------- */
 @media (max-width: 899px){
   :root{ --header-h: 56px; }
+  .brand{ justify-self:start; }
+  .brand-logo{ height:22px; }           /* smaller header logo on mobile */
+  .menu-icon{ width:18px; height:18px; }/* smaller three-dots */
 
-  /* logo far-left on mobile */
-  .header-inner{
-    grid-template-columns: auto 1fr auto; /* logo left | spacer | menu */
+  /* Keep generous but balanced hero spacing on phones */
+  :root{
+    --hero-pt: clamp(96px, 22vw, 160px);
+    --hero-pb: clamp(88px, 20vw, 150px);
   }
-  .brand{ justify-self:start; order:1; }
-  .brand-logo{ height:22px; }             /* smaller mobile header logo */
-  .menu-toggle{ order:3; }
-  .menu-icon{ width:20px; height:20px; }  /* even smaller on mobile */
 
-  /* mobile hero: doubled too, with bigger logo */
-  .hero{
-    padding-top: clamp(56px, 14vw, 112px);     /* doubled */
-    padding-bottom: clamp(56px, 14vw, 112px);  /* doubled */
-  }
-  .hero-logo{
-    width: clamp(280px, 72vw, 480px);          /* larger on mobile */
-  }
+  /* Slightly larger top line for readability on small screens */
+  .wm-line1{ font-size: clamp(24px, 7vw, 38px); }
+  .wm-line2{ letter-spacing: .42em; }
 }
 
-/* Large laptop */
+/* Large laptop refinement */
 @media (min-width: 1200px){
-  .hero-logo{ width: 440px; }
+  .wm-line1{ font-size: 52px; }
 }
 
-/* iOS safe areas */
-@supports (padding: max(0px)){
+/* Safe areas (iOS notches) */
+@supports(padding:max(0px)){
   .site-header{
     padding-left:max(env(safe-area-inset-left),0);
     padding-right:max(env(safe-area-inset-right),0);
