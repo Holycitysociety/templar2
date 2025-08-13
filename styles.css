@@ -3,11 +3,8 @@
   --white:#ffffff;
   --ink:#1d1d1f;
   --container: 1200px;
+  --header-h: 56px;
 
-  /* header heights (desktop default) */
-  --header-h: 72px;
-
-  /* hero spacing */
   --hero-pt: clamp(112px, 16vw, 200px);
   --hero-pb: clamp(104px, 15vw, 188px);
 }
@@ -29,7 +26,7 @@ body{
   width:100%;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 16px;
 }
 
 /* ===== Header ===== */
@@ -43,16 +40,21 @@ body{
   align-items:center;
 }
 
-/* Desktop header: row (menu left, brand center-left) – we’ll rely on spacing via grid */
 .header-inner{
-  display:grid;
-  grid-template-columns: auto 1fr;
+  display:flex;
   align-items:center;
-  gap: 12px;
+  justify-content:space-between;
   width: 100%;
 }
 
-/* Menu */
+/* Compact logo */
+.brand-logo{
+  height:28px;
+  width:auto;
+  display:block;
+}
+
+/* Compact menu dots */
 .menu-toggle{
   background:transparent;
   border:none;
@@ -60,27 +62,10 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:6px;
+  padding:4px;
   cursor:pointer;
 }
-.menu-icon{ width:22px; height:22px; }
-
-/* Brand logo — DESKTOP 50% larger (32px → 48px) */
-.brand-logo{
-  height:48px;    /* 50% increase on laptop/desktop */
-  width:auto;
-  display:block;
-}
-
-/* Nav placeholder off */
-.nav{ display:none; }
-
-/* ===== Page layout to bottom ===== */
-main{
-  display:flex;
-  flex-direction:column;
-  min-height: calc(100dvh - var(--header-h));
-}
+.menu-icon{ width:20px; height:20px; }
 
 /* ===== HERO ===== */
 .hero{
@@ -92,67 +77,30 @@ main{
   padding-bottom: var(--hero-pb);
 }
 
-/* HERO inner: keep logo centered; add side padding behavior from container */
 .hero-inner{
   text-align:center;
 }
 
-/* Hero logo — DESKTOP up to ~630px (50% more than original 420px cap) */
 .hero-logo{
-  width: clamp(300px, 45vw, 630px);
+  width: clamp(300px, 45vw, 480px);
   height:auto;
-  max-width: calc(100% - 48px); /* respect container side padding visually */
 }
 
-/* ===== BLACK section fills remaining viewport ===== */
+/* ===== BLACK section ===== */
 .flag-black{
   background: var(--black);
   color:#fff;
+  flex: 1 1 auto;
   display:flex;
   align-items:center;
-  flex: 1 1 auto;
 }
 .black-inner{
   width:100%;
   padding: clamp(36px, 6vw, 72px) 0;
 }
 
-/* ===== Mobile (<900px) ===== */
+/* Mobile adjustments if needed */
 @media (max-width: 899px){
-  :root{
-    --header-h: 84px; /* taller to accommodate stacked menu above logo */
-    --hero-pt: clamp(92px, 22vw, 160px);
-    --hero-pb: clamp(88px, 20vw, 150px);
-  }
-
-  /* Stack header: menu ABOVE, centered; logo BELOW, centered */
-  .header-inner{
-    grid-template-columns: 1fr;   /* one column */
-    grid-auto-rows: min-content;
-    justify-items: center;
-    row-gap: 6px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-  }
-
-  .menu-icon{ width:18px; height:18px; } /* smaller dots on mobile */
-
-  /* Centered brand on mobile; increase logo size */
-  .brand-logo{
-    height: 36px;  /* larger than old 22–28px for presence */
-  }
-
-  /* Mobile hero logo: go as big as possible within safe padding */
-  .hero-logo{
-    width: min(92vw, 560px);  /* nearly edge-to-edge */
-    max-width: calc(100% - 32px); /* ensure 16px visual pad each side */
-  }
-}
-
-/* iOS safe areas */
-@supports(padding:max(0px)){
-  .site-header{
-    padding-left:max(env(safe-area-inset-left),0);
-    padding-right:max(env(safe-area-inset-right),0);
-  }
+  .brand-logo{ height:24px; }
+  .menu-icon{ width:18px; height:18px; }
 }
