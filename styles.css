@@ -4,8 +4,6 @@
   --ink:#1d1d1f;
   --container: 1200px;
   --header-h: 68px;
-
-  /* standardized hero spacing */
   --hero-pt: clamp(128px, 18vw, 220px);
   --hero-pb: clamp(120px, 16vw, 200px);
 }
@@ -20,8 +18,6 @@ body{
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 .container{
@@ -31,7 +27,6 @@ body{
   padding: 0 24px;
 }
 
-/* Header */
 .site-header{
   position: sticky;
   top:0;
@@ -43,12 +38,14 @@ body{
 }
 .header-inner{
   display:grid;
-  grid-template-columns: auto 1fr auto; /* logo | spacer | menu */
+  grid-template-columns: auto 1fr auto;
   align-items:center;
   gap:16px;
 }
+
+/* Increased logo size by 30% */
 .brand-logo{
-  height:32px;
+  height:41.6px; /* 32px * 1.3 */
   width:auto;
   display:block;
 }
@@ -66,14 +63,12 @@ body{
 .menu-icon{ width:22px; height:22px; }
 .nav{ display:none; }
 
-/* Layout to bottom */
 main{
   display:flex;
   flex-direction:column;
   min-height: calc(100dvh - var(--header-h));
 }
 
-/* ===== HERO (motto only) ===== */
 .hero{
   background: var(--white);
   display:flex;
@@ -84,25 +79,12 @@ main{
 }
 .hero-inner{ text-align:center; }
 
-/* Wordmark / motto styling */
-.wordmark{
-  margin:0;
-  line-height: 1.15;
-  letter-spacing: .02em;
-}
-.wm-line2{
-  display:block;
-  font-weight: 400;
-  font-size: clamp(13px, 1.8vw, 16px);
-  letter-spacing: .46em;       /* elegant spacing */
-  text-transform: uppercase;   /* canonical look */
-  opacity: .85;
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
+/* Increase hero logo too */
+.hero-logo{
+  width: clamp(260px, 49.4vw, 546px); /* 200px–420px * 1.3 */
+  height:auto;
 }
 
-/* ===== BLACK SECTION fills remaining viewport ===== */
 .flag-black{
   background: var(--black);
   color:#fff;
@@ -115,31 +97,16 @@ main{
   padding: clamp(36px, 6vw, 72px) 0;
 }
 
-/* ===== Mobile tweaks ===== */
 @media (max-width: 899px){
   :root{
     --header-h: 56px;
     --hero-pt: clamp(96px, 22vw, 160px);
     --hero-pb: clamp(88px, 20vw, 150px);
   }
-
-  /* logo far-left on mobile */
   .brand{ justify-self:start; }
-  .brand-logo{ height:22px; }
-
-  /* three-dots a touch smaller on mobile */
-  .menu-icon{ width:18px; height:18px; }
-}
-
-/* Large laptop refinement */
-@media (min-width: 1200px){
-  .wm-line2{ font-size: 16px; }
-}
-
-/* iOS safe areas */
-@supports(padding:max(0px)){
-  .site-header{
-    padding-left:max(env(safe-area-inset-left),0);
-    padding-right:max(env(safe-area-inset-right),0);
+  .brand-logo{ height:28.6px; } /* 22px * 1.3 */
+  .hero-logo{
+    width: clamp(260px, 65vw, 420px);
   }
+  .menu-icon{ width:18px; height:18px; }
 }
