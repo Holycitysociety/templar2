@@ -1,0 +1,28 @@
+:root{
+  --black:#0a0a0a;
+  --charcoal:#111315;
+  --white:#ffffff;
+  --ink:#1d1d1f;
+  --muted:#6b6b6b;
+  --container: 1200px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family: ui-sans-serif, system-ui; color: var(--ink); background: var(--white); line-height: 1.45;}
+.container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 24px;}
+.site-header{position: sticky;top:0;z-index:1000;background: transparent;height: 68px;display:flex;align-items:center;}
+.header-inner{display:grid;grid-template-columns: 1fr auto auto;align-items:center;gap:16px;}
+.brand-logo{height:32px;width:auto;display:block;}
+.nav{display:none;}
+.menu-toggle{margin-left:auto;background:transparent;border:none;color:var(--ink);display:flex;align-items:center;padding:8px;cursor:pointer;}
+.hero{background: var(--white);padding: clamp(72px, 12vw, 160px) 0 clamp(64px, 10vw, 120px);display:flex;align-items:center;}
+.hero-inner{text-align:center;}
+.hero-logo{width: clamp(200px, 38vw, 420px);height:auto;}
+.flag-black{background: var(--black);color: var(--white);min-height: 40vh;display:flex;align-items:center;}
+.black-inner{padding: clamp(48px, 8vw, 96px) 0;}
+@media (max-width: 899px){
+  .header-inner{grid-template-columns: 1fr auto;}
+  .brand{justify-self:center;order:1;}
+  .menu-toggle{justify-self:end;order:2;}
+  .brand-logo{height:28px;}
+}
