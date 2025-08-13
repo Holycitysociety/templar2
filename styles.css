@@ -2,11 +2,8 @@
   --black:#0a0a0a;
   --white:#ffffff;
   --ink:#1d1d1f;
-  --muted:#6b6b6b;
   --container: 1200px;
-
-  /* header height (desktop default) */
-  --header-h: 68px;
+  --header-h: 68px; /* desktop default */
 }
 
 *{box-sizing:border-box}
@@ -19,7 +16,6 @@ body{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* make the black section stretch to the bottom */
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -27,39 +23,40 @@ body{
 
 .container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 24px;}
 
-/* Transparent Header */
+/* Header */
 .site-header{
   position: sticky; top:0; z-index:1000;
   background: transparent;
   height: var(--header-h);
   display:flex; align-items:center;
-  padding: 0;
 }
 
 .header-inner{
   display:grid;
-  grid-template-columns: 1fr auto auto; /* logo | (space) | hamburger */
+  grid-template-columns: auto 1fr auto; /* logo | space | menu */
   align-items:center; gap:16px;
 }
 
-.brand-logo{height:32px; width:auto; display:block;}
-.menu-toggle{margin-left:auto;background:transparent;border:none;color:var(--ink);display:flex;align-items:center;padding:8px;cursor:pointer;}
+.brand-logo{height:32px;width:auto;display:block;}
+
+.menu-toggle{
+  margin-left:auto;
+  background:transparent; border:none; color:var(--ink);
+  display:flex; align-items:center; padding:6px; cursor:pointer;
+}
+.menu-icon{ width:22px; height:22px; } /* smaller than before */
+
 .nav{display:none}
 
-/* Layout below header should fill viewport */
-main{
-  display:flex;
-  flex-direction:column;
-  min-height: calc(100dvh - var(--header-h));
-}
+/* Lay out rest of page to bottom */
+main{display:flex;flex-direction:column;min-height:calc(100dvh - var(--header-h));}
 
-/* HERO (white) */
+/* HERO — doubled vertical whitespace vs previous */
 .hero{
   background: var(--white);
   display:flex; align-items:center; justify-content:center;
-  /* Laptop/desktop: increase white margin around hero logo */
-  padding-top: clamp(72px, 10vw, 120px);
-  padding-bottom: clamp(68px, 9vw, 112px);
+  padding-top: clamp(144px, 20vw, 240px);   /* doubled */
+  padding-bottom: clamp(136px, 18vw, 224px);/* doubled */
 }
 .hero-inner{text-align:center;}
 .hero-logo{
@@ -67,48 +64,47 @@ main{
   height:auto;
 }
 
-/* BLACK SECTION fills the remaining height to the bottom */
+/* BLACK section fills the remainder to the bottom */
 .flag-black{
   background: var(--black);
-  color: var(--white);
+  color:#fff;
   display:flex; align-items:center;
-  /* stretch to bottom by taking leftover space */
   flex: 1 1 auto;
 }
 .black-inner{width:100%; padding: clamp(36px, 6vw, 72px) 0;}
 
-/* ---------- Mobile tweaks ---------- */
+/* -------- Mobile tweaks -------- */
 @media (max-width: 899px){
-  :root{ --header-h: 56px; }            /* smaller mobile header */
-  .header-inner{ grid-template-columns: 1fr auto; }
-  .brand{ justify-self:center; order:1; }
-  .menu-toggle{ justify-self:end; order:2; }
-  .brand-logo{ height:24px; }           /* reduced mobile header logo */
+  :root{ --header-h: 56px; }
 
-  /* Mobile hero: increase logo size and tighten vertical space */
+  /* logo far-left on mobile */
+  .header-inner{
+    grid-template-columns: auto 1fr auto; /* logo left | spacer | menu */
+  }
+  .brand{ justify-self:start; order:1; }
+  .brand-logo{ height:22px; }             /* smaller mobile header logo */
+  .menu-toggle{ order:3; }
+  .menu-icon{ width:20px; height:20px; }  /* even smaller on mobile */
+
+  /* mobile hero: doubled too, with bigger logo */
   .hero{
-    padding-top: clamp(28px, 7vw, 56px);
-    padding-bottom: clamp(28px, 7vw, 56px);
+    padding-top: clamp(56px, 14vw, 112px);     /* doubled */
+    padding-bottom: clamp(56px, 14vw, 112px);  /* doubled */
   }
   .hero-logo{
-    width: clamp(260px, 70vw, 440px);   /* larger mobile hero logo */
+    width: clamp(280px, 72vw, 480px);          /* larger on mobile */
   }
 }
 
-/* LARGE laptop: a touch more breathing room if desired */
+/* Large laptop */
 @media (min-width: 1200px){
-  .hero{ padding-top: 96px; padding-bottom: 88px; }
-  .hero-logo{ width: 420px; }
+  .hero-logo{ width: 440px; }
 }
 
-/* Respect iOS safe areas */
+/* iOS safe areas */
 @supports (padding: max(0px)){
   .site-header{
     padding-left:max(env(safe-area-inset-left),0);
     padding-right:max(env(safe-area-inset-right),0);
   }
 }
-
-/* Optional black footer cap (if you ever want a hard edge at bottom)
-footer.site-footer{background:var(--black);color:#fff;padding:16px 0;text-align:center}
-*/
