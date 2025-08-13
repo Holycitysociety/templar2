@@ -1,5 +1,3 @@
-
-// Placeholder for future nav toggle
 const toggle = document.querySelector('.menu-toggle');
 const nav = document.getElementById('site-nav');
 
