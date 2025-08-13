@@ -3,9 +3,13 @@
   --white:#ffffff;
   --ink:#1d1d1f;
   --container: 1200px;
-  --header-h: 68px;
-  --hero-pt: clamp(128px, 18vw, 220px);
-  --hero-pb: clamp(120px, 16vw, 200px);
+
+  /* header heights (desktop default) */
+  --header-h: 72px;
+
+  /* hero spacing */
+  --hero-pt: clamp(112px, 16vw, 200px);
+  --hero-pb: clamp(104px, 15vw, 188px);
 }
 
 *{box-sizing:border-box}
@@ -15,6 +19,7 @@ body{
   color: var(--ink);
   background: var(--white);
   line-height: 1.45;
+
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -27,6 +32,7 @@ body{
   padding: 0 24px;
 }
 
+/* ===== Header ===== */
 .site-header{
   position: sticky;
   top:0;
@@ -36,39 +42,47 @@ body{
   display:flex;
   align-items:center;
 }
+
+/* Desktop header: row (menu left, brand center-left) – we’ll rely on spacing via grid */
 .header-inner{
   display:grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items:center;
-  gap:16px;
+  gap: 12px;
+  width: 100%;
 }
 
-/* Increased logo size by 30% */
-.brand-logo{
-  height:41.6px; /* 32px * 1.3 */
-  width:auto;
-  display:block;
-}
-
+/* Menu */
 .menu-toggle{
-  margin-left:auto;
   background:transparent;
   border:none;
   color:var(--ink);
   display:flex;
   align-items:center;
+  justify-content:center;
   padding:6px;
   cursor:pointer;
 }
 .menu-icon{ width:22px; height:22px; }
+
+/* Brand logo — DESKTOP 50% larger (32px → 48px) */
+.brand-logo{
+  height:48px;    /* 50% increase on laptop/desktop */
+  width:auto;
+  display:block;
+}
+
+/* Nav placeholder off */
 .nav{ display:none; }
 
+/* ===== Page layout to bottom ===== */
 main{
   display:flex;
   flex-direction:column;
   min-height: calc(100dvh - var(--header-h));
 }
 
+/* ===== HERO ===== */
 .hero{
   background: var(--white);
   display:flex;
@@ -77,14 +91,20 @@ main{
   padding-top: var(--hero-pt);
   padding-bottom: var(--hero-pb);
 }
-.hero-inner{ text-align:center; }
 
-/* Increase hero logo too */
-.hero-logo{
-  width: clamp(260px, 49.4vw, 546px); /* 200px–420px * 1.3 */
-  height:auto;
+/* HERO inner: keep logo centered; add side padding behavior from container */
+.hero-inner{
+  text-align:center;
 }
 
+/* Hero logo — DESKTOP up to ~630px (50% more than original 420px cap) */
+.hero-logo{
+  width: clamp(300px, 45vw, 630px);
+  height:auto;
+  max-width: calc(100% - 48px); /* respect container side padding visually */
+}
+
+/* ===== BLACK section fills remaining viewport ===== */
 .flag-black{
   background: var(--black);
   color:#fff;
@@ -97,16 +117,42 @@ main{
   padding: clamp(36px, 6vw, 72px) 0;
 }
 
+/* ===== Mobile (<900px) ===== */
 @media (max-width: 899px){
   :root{
-    --header-h: 56px;
-    --hero-pt: clamp(96px, 22vw, 160px);
+    --header-h: 84px; /* taller to accommodate stacked menu above logo */
+    --hero-pt: clamp(92px, 22vw, 160px);
     --hero-pb: clamp(88px, 20vw, 150px);
   }
-  .brand{ justify-self:start; }
-  .brand-logo{ height:28.6px; } /* 22px * 1.3 */
-  .hero-logo{
-    width: clamp(260px, 65vw, 420px);
+
+  /* Stack header: menu ABOVE, centered; logo BELOW, centered */
+  .header-inner{
+    grid-template-columns: 1fr;   /* one column */
+    grid-auto-rows: min-content;
+    justify-items: center;
+    row-gap: 6px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
-  .menu-icon{ width:18px; height:18px; }
+
+  .menu-icon{ width:18px; height:18px; } /* smaller dots on mobile */
+
+  /* Centered brand on mobile; increase logo size */
+  .brand-logo{
+    height: 36px;  /* larger than old 22–28px for presence */
+  }
+
+  /* Mobile hero logo: go as big as possible within safe padding */
+  .hero-logo{
+    width: min(92vw, 560px);  /* nearly edge-to-edge */
+    max-width: calc(100% - 32px); /* ensure 16px visual pad each side */
+  }
+}
+
+/* iOS safe areas */
+@supports(padding:max(0px)){
+  .site-header{
+    padding-left:max(env(safe-area-inset-left),0);
+    padding-right:max(env(safe-area-inset-right),0);
+  }
 }
