@@ -1,41 +1,114 @@
 :root{
   --black:#0a0a0a;
-  --charcoal:#111315;
   --white:#ffffff;
   --ink:#1d1d1f;
   --muted:#6b6b6b;
   --container: 1200px;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font-family: ui-sans-serif, system-ui; color: var(--ink); background: var(--white); line-height: 1.45;}
-.container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 24px;}
-.site-header{position: sticky;top:0;z-index:1000;background: transparent;height: 68px;display:flex;align-items:center;}
-.header-inner{display:grid;grid-template-columns: 1fr auto auto;align-items:center;gap:16px;}
-.brand-logo{height:32px;width:auto;display:block;}
-.nav{display:none;}
-.menu-toggle{margin-left:auto;background:transparent;border:none;color:var(--ink);display:flex;align-items:center;padding:8px;cursor:pointer;}
 
+  /* header height (desktop default) */
+  --header-h: 68px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* make the black section stretch to the bottom */
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 24px;}
+
+/* Transparent Header */
+.site-header{
+  position: sticky; top:0; z-index:1000;
+  background: transparent;
+  height: var(--header-h);
+  display:flex; align-items:center;
+  padding: 0;
+}
+
+.header-inner{
+  display:grid;
+  grid-template-columns: 1fr auto auto; /* logo | (space) | hamburger */
+  align-items:center; gap:16px;
+}
+
+.brand-logo{height:32px; width:auto; display:block;}
+.menu-toggle{margin-left:auto;background:transparent;border:none;color:var(--ink);display:flex;align-items:center;padding:8px;cursor:pointer;}
+.nav{display:none}
+
+/* Layout below header should fill viewport */
+main{
+  display:flex;
+  flex-direction:column;
+  min-height: calc(100dvh - var(--header-h));
+}
+
+/* HERO (white) */
 .hero{
   background: var(--white);
-  /* reduced from clamp(72px,12vw,160px) / clamp(64px,10vw,120px) */
-  padding: clamp(48px, 8vw, 106px) 0 clamp(42px, 6.7vw, 80px);
-  display:flex;
-  align-items:center;
+  display:flex; align-items:center; justify-content:center;
+  /* Laptop/desktop: increase white margin around hero logo */
+  padding-top: clamp(72px, 10vw, 120px);
+  padding-bottom: clamp(68px, 9vw, 112px);
 }
-
 .hero-inner{text-align:center;}
-
 .hero-logo{
-  width: clamp(200px, 32vw, 360px); /* was 38vw/420px */
+  width: clamp(220px, 34vw, 420px);
   height:auto;
 }
 
-.flag-black{background: var(--black);color: var(--white);min-height: 40vh;display:flex;align-items:center;}
-.black-inner{padding: clamp(48px, 8vw, 96px) 0;}
-@media (max-width: 899px){
-  .header-inner{grid-template-columns: 1fr auto;}
-  .brand{justify-self:center;order:1;}
-  .menu-toggle{justify-self:end;order:2;}
-  .brand-logo{height:28px;}
+/* BLACK SECTION fills the remaining height to the bottom */
+.flag-black{
+  background: var(--black);
+  color: var(--white);
+  display:flex; align-items:center;
+  /* stretch to bottom by taking leftover space */
+  flex: 1 1 auto;
 }
+.black-inner{width:100%; padding: clamp(36px, 6vw, 72px) 0;}
+
+/* ---------- Mobile tweaks ---------- */
+@media (max-width: 899px){
+  :root{ --header-h: 56px; }            /* smaller mobile header */
+  .header-inner{ grid-template-columns: 1fr auto; }
+  .brand{ justify-self:center; order:1; }
+  .menu-toggle{ justify-self:end; order:2; }
+  .brand-logo{ height:24px; }           /* reduced mobile header logo */
+
+  /* Mobile hero: increase logo size and tighten vertical space */
+  .hero{
+    padding-top: clamp(28px, 7vw, 56px);
+    padding-bottom: clamp(28px, 7vw, 56px);
+  }
+  .hero-logo{
+    width: clamp(260px, 70vw, 440px);   /* larger mobile hero logo */
+  }
+}
+
+/* LARGE laptop: a touch more breathing room if desired */
+@media (min-width: 1200px){
+  .hero{ padding-top: 96px; padding-bottom: 88px; }
+  .hero-logo{ width: 420px; }
+}
+
+/* Respect iOS safe areas */
+@supports (padding: max(0px)){
+  .site-header{
+    padding-left:max(env(safe-area-inset-left),0);
+    padding-right:max(env(safe-area-inset-right),0);
+  }
+}
+
+/* Optional black footer cap (if you ever want a hard edge at bottom)
+footer.site-footer{background:var(--black);color:#fff;padding:16px 0;text-align:center}
+*/
