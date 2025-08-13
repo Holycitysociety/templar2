@@ -15,9 +15,22 @@ body{font-family: ui-sans-serif, system-ui; color: var(--ink); background: var(-
 .brand-logo{height:32px;width:auto;display:block;}
 .nav{display:none;}
 .menu-toggle{margin-left:auto;background:transparent;border:none;color:var(--ink);display:flex;align-items:center;padding:8px;cursor:pointer;}
-.hero{background: var(--white);padding: clamp(72px, 12vw, 160px) 0 clamp(64px, 10vw, 120px);display:flex;align-items:center;}
+
+.hero{
+  background: var(--white);
+  /* reduced from clamp(72px,12vw,160px) / clamp(64px,10vw,120px) */
+  padding: clamp(48px, 8vw, 106px) 0 clamp(42px, 6.7vw, 80px);
+  display:flex;
+  align-items:center;
+}
+
 .hero-inner{text-align:center;}
-.hero-logo{width: clamp(200px, 38vw, 420px);height:auto;}
+
+.hero-logo{
+  width: clamp(200px, 32vw, 360px); /* was 38vw/420px */
+  height:auto;
+}
+
 .flag-black{background: var(--black);color: var(--white);min-height: 40vh;display:flex;align-items:center;}
 .black-inner{padding: clamp(48px, 8vw, 96px) 0;}
 @media (max-width: 899px){
