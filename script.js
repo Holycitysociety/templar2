@@ -1,5 +1,8 @@
+
+// Placeholder for future nav toggle
 const toggle = document.querySelector('.menu-toggle');
 const nav = document.getElementById('site-nav');
+
 if (toggle && nav) {
   toggle.addEventListener('click', () => {
     const open = nav.getAttribute('data-open') === 'true';
