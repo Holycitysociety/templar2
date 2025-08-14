@@ -1,93 +1,72 @@
-:root {
+:root{
   --container: 1200px;
   --header-h: 56px;
 }
 
-* { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; height: 100%; background: #000; }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
 
-/* Background image fills full viewport height */
-body {
+body{
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
   color: #1d1d1f;
   line-height: 1.45;
-}
-
-/* Background image for hero section */
-.hero {
-  background: url("background.jpeg") center top / cover no-repeat;
-  min-height: 100vh;
+  background-color: #000; /* default behind fabric image */
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
 }
 
-/* Logo in hero */
-.hero-logo {
+/* Fixed full-viewport background image */
+body::before{
+  content:"";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url("background.png") top center / cover no-repeat;
+}
+
+/* Container */
+.container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 16px;}
+
+/* Header */
+.site-header{
+  position: sticky; top:0; z-index:1000;
+  background: transparent;
+  height: var(--header-h);
+  display:flex; align-items:center;
+}
+.header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.brand-logo{height:24px;width:auto;display:block;}
+.menu-toggle{background:transparent;border:none;color:#1d1d1f;display:flex;align-items:center;justify-content:center;padding:4px;cursor:pointer}
+.menu-icon{width:18px;height:18px;fill:currentColor}
+
+/* Hero section */
+.hero{
+  display:flex;align-items:center;justify-content:center;
+  min-height: 60vh;
+}
+.hero-inner{text-align:center;}
+.hero-logo{
   width: min(92vw, 720px);
   height: auto;
 }
 
-/* Header layout */
-.site-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  background: transparent;
-  height: var(--header-h);
-  display: flex;
-  align-items: center;
+/* Spacer pushes copyright to bottom of background */
+.spacer{
+  height: 40vh;
 }
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 16px;
-}
-.brand-logo {
-  height: 24px;
-  width: auto;
-}
-.menu-toggle {
-  background: transparent;
-  border: none;
-  color: #1d1d1f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  cursor: pointer;
-}
-.menu-icon {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-.nav { display: none; }
 
-/* Solid black footer */
-.site-footer {
-  background: #000;
-  color: #fff;
-  padding: 48px 0;
+/* Copyright styling */
+.copyright{
   text-align: center;
-}
-.site-footer .social-icons {
-  margin-top: 16px;
-}
-.site-footer .social-icons a {
-  display: inline-block;
-  margin: 0 8px;
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.8);
+  padding: 16px;
 }
 
-/* Mobile adjustments */
-@media (max-width: 899px) {
-  .brand-logo { height: 14px; } /* 40% smaller for mobile */
+/* iOS safe area */
+@supports(padding:max(0px)){
+  .site-header{
+    padding-left:max(env(safe-area-inset-left),0);
+    padding-right:max(env(safe-area-inset-right),0);
+  }
 }
