@@ -35,29 +35,27 @@
     </div>
   </header>
 
-  <!-- ===== Scroll Track: total page length = sections * 100vh ===== -->
-  <main id="track">
-    <!-- Sticky stage that fills the viewport while we scroll the track -->
-    <section class="stage">
-      <!-- Zoom layer (image + overlays scale together) -->
-      <div class="zoom-layer">
-        <img src="background.png" alt="" class="fabric-img" />
+  <!-- The fixed parallax background image lives behind everything -->
+  <img src="background.png" alt="" id="parallax-bg" aria-hidden="true" />
 
-        <!-- Hero locked to 25% of the fabric -->
-        <div class="hero">
-          <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
-        </div>
-
-        <!-- Copyright locked to bottom of the fabric -->
-        <div class="copyright">© 2025 Milites Templi. All rights reserved.</div>
+  <main id="content">
+    <!-- HERO (regular content; background moves behind it) -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
       </div>
     </section>
 
-    <!-- Optional real content sections (these just increase the scroll length).
-         You can remove these if you’re only using the zoom effect for length. -->
-    <section class="content after">
+    <!-- Add as many sections as you want; background will map top->bottom across total scroll -->
+    <section class="section"><div class="container"></div></section>
+    <section class="section"><div class="container"></div></section>
+    <section class="section"><div class="container"></div></section>
+    <section class="section"><div class="container"></div></section>
+
+    <!-- Copyright (as foreground content; background will already be at its bottom here) -->
+    <section class="copyright-wrap">
       <div class="container">
-        <!-- Put your actual section content here if/when you have it -->
+        <p class="copyright">© 2025 Milites Templi. All rights reserved.</p>
       </div>
     </section>
   </main>
