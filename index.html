@@ -6,7 +6,7 @@
   <title>Milites Templi</title>
   <meta name="description" content="Milites Templi — discreet custody, settlement, and protection." />
 
-  <!-- Match browser chrome / overscroll color to fabric's off-white -->
+  <!-- Match browser chrome / overscroll to fabric off-white -->
   <meta name="theme-color" content="#f5f3ec" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
@@ -35,18 +35,30 @@
     </div>
   </header>
 
-  <main id="content">
-    <!-- Fabric background as a real image (height-locked) -->
-    <section class="fabric" aria-label="Templar fabric background">
-      <img src="background.png" alt="" class="fabric-img" />
+  <!-- ===== Scroll Track: total page length = sections * 100vh ===== -->
+  <main id="track">
+    <!-- Sticky stage that fills the viewport while we scroll the track -->
+    <section class="stage">
+      <!-- Zoom layer (image + overlays scale together) -->
+      <div class="zoom-layer">
+        <img src="background.png" alt="" class="fabric-img" />
 
-      <!-- Hero locked to 25% of fabric height -->
-      <div class="hero">
-        <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
+        <!-- Hero locked to 25% of the fabric -->
+        <div class="hero">
+          <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
+        </div>
+
+        <!-- Copyright locked to bottom of the fabric -->
+        <div class="copyright">© 2025 Milites Templi. All rights reserved.</div>
       </div>
+    </section>
 
-      <!-- Copyright pinned to fabric bottom -->
-      <div class="copyright">© 2025 Milites Templi. All rights reserved.</div>
+    <!-- Optional real content sections (these just increase the scroll length).
+         You can remove these if you’re only using the zoom effect for length. -->
+    <section class="content after">
+      <div class="container">
+        <!-- Put your actual section content here if/when you have it -->
+      </div>
     </section>
   </main>
 
