@@ -2,8 +2,10 @@
 :root{
   --container: 1200px;
   --header-h: 56px;
-  --white-band: 66svh;   /* was 60svh — start here; nudge up/down to taste */
-  --seam-push: 6svh;     /* new: extra vertical stretch to push seam lower */
+
+  /* Controls: move seam DOWN by increasing these */
+  --white-band: 66svh;   /* was 60svh */
+  --seam-push: 6svh;     /* stretches bg vertically a bit */
 }
 
 *{box-sizing:border-box}
@@ -26,7 +28,8 @@ body::before{
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: url("Background.png") top center / 100% 100svh no-repeat;
+  /* NOTE: file name is Background.png */
+  background: url("Background.png") top center / 100% calc(100svh + var(--seam-push)) no-repeat;
   background-color: #ffffff;
 }
 
@@ -70,11 +73,11 @@ main{display:flex;flex-direction:column;min-height:calc(100svh - var(--header-h)
 }
 .black-inner{width:100%;padding: clamp(36px, 6vw, 72px) 0;}
 
-/* Larger screens — nudge if needed */
+/* Larger screens — optional nudge ONLY here */
 @media (min-width: 900px){
   :root{
-    --header-h: 56px;
-    --white-band: 60svh;   /* adjust here if laptop seam needs alignment */
+    --white-band: 68svh;  /* lower seam a bit more on laptops */
+    --seam-push: 8svh;    /* stretch bg slightly more on laptops */
   }
   .brand-logo{height:24px;}
   .menu-icon{width:18px;height:18px;}
