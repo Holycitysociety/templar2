@@ -1,90 +1,78 @@
-/* Fabric split background — hero locked to white band */
 :root{
   --container: 1200px;
-  --header-h: 56px;
 
-  /* Controls: move seam DOWN by increasing these */
-  --white-band: 66svh;   /* was 60svh */
-  --seam-push: 6svh;     /* stretches bg vertically a bit */
+  /* Header sizes */
+  --header-h-desktop: 56px;
+  --header-h-mobile: 56px;
+
+  /* Header logo sizes */
+  --brand-logo-desktop: 24px;  /* desktop header logo height */
+  --brand-logo-mobile: 14px;   /* ~40% smaller on mobile */
+
+  /* Place hero logo center at 25% of viewport height */
+  --hero-center: 25svh;
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;height:100%}
+html,body{margin:0;padding:0}
 
-/* Use small viewport units so iOS toolbars don’t create gaps */
+/* Scrollable page background */
 body{
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  color: #1d1d1f;
-  background: #ffffff;
-  line-height: 1.45;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Fixed full-viewport background with your fabric image */
-body::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  /* NOTE: file name is Background.png */
-  background: url("Background.png") top center / 100% calc(100svh + var(--seam-push)) no-repeat;
-  background-color: #ffffff;
+  color:#1d1d1f;
+  background: url("background.png") top center / cover no-repeat scroll;
+  min-height:100svh;
 }
 
 /* Container */
-.container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 16px;}
+.container{width:100%;max-width:var(--container);margin:0 auto;padding:0 16px}
 
-/* Header: small logo left, three-dots right */
+/* Fixed header */
 .site-header{
-  position: sticky; top:0; z-index:1000;
-  background: transparent;
-  height: var(--header-h);
+  position:fixed; top:0; left:0; right:0;
+  height:var(--header-h-desktop);
   display:flex; align-items:center;
+  background:transparent;
+  z-index:1000;
 }
-.header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
-.brand-logo{height:24px;width:auto;display:block;image-rendering:-webkit-optimize-contrast;}
+.header-inner{display:flex; align-items:center; justify-content:space-between; width:100%}
+.brand-logo{height:var(--brand-logo-desktop); width:auto; display:block}
 .menu-toggle{background:transparent;border:none;color:#1d1d1f;display:flex;align-items:center;justify-content:center;padding:4px;cursor:pointer}
 .menu-icon{width:18px;height:18px;fill:currentColor}
 .nav{display:none}
 
-/* Layout fills viewport below header */
-main{display:flex;flex-direction:column;min-height:calc(100svh - var(--header-h));}
+/* Keep content below the fixed header */
+#content{padding-top:var(--header-h-desktop)}
 
-/* HERO: stays entirely within the white band (white area minus header) */
-.hero{
-  display:flex;align-items:center;justify-content:center;
-  min-height: calc(var(--white-band) - var(--header-h));
-  padding: clamp(12px, 3.5vw, 28px) 0; /* breathing room without spilling into black */
+/* Spacer so HERO center lands ~25% from top */
+.spacer-25vh{
+  height: calc(var(--hero-center) - (var(--brand-logo-desktop) / 2));
 }
-.hero-inner{text-align:center;}
+
+/* HERO */
+.hero{display:flex;justify-content:center;align-items:center}
 .hero-logo{
-  width: min(92vw, 720px);
-  max-width: calc(100% - 32px); /* ~16px side padding each side */
-  height: auto;
+  width:min(92vw,760px);
+  max-width:calc(100% - 32px);
+  height:auto; display:block;
 }
 
-/* Section that sits over the black band (background provides the color) */
-.flag-black{
-  flex: 1 0 auto;          /* fills remaining space */
-  display:flex;align-items:center;width:100%;
-  color:#fff;
-}
-.black-inner{width:100%;padding: clamp(36px, 6vw, 72px) 0;}
+/* Content below (continues into dark band) */
+.after-hero{min-height:40svh}
 
-/* Larger screens — optional nudge ONLY here */
-@media (min-width: 900px){
-  :root{
-    --white-band: 68svh;  /* lower seam a bit more on laptops */
-    --seam-push: 8svh;    /* stretch bg slightly more on laptops */
+/* Mobile */
+@media (max-width: 899px){
+  .site-header{height:var(--header-h-mobile)}
+  #content{padding-top:var(--header-h-mobile)}
+  .brand-logo{height:var(--brand-logo-mobile)}      /* 40% smaller */
+  .spacer-25vh{height: calc(var(--hero-center) - (var(--brand-logo-mobile) / 2))}
+  .hero-logo{
+    width:min(94vw,640px);
+    max-width:calc(100% - 24px);
   }
-  .brand-logo{height:24px;}
-  .menu-icon{width:18px;height:18px;}
-  .hero-logo{width: min(60vw, 820px);}
 }
 
-/* iOS safe areas (avoid tiny slivers) */
+/* iOS safe areas */
 @supports(padding:max(0px)){
   .site-header{
     padding-left:max(env(safe-area-inset-left),0);
