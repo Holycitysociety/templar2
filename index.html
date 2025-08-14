@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Fixed header -->
+  <!-- Fixed, transparent header -->
   <header class="site-header" role="banner">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Milites Templi home">
@@ -29,17 +29,17 @@
   </header>
 
   <main id="content">
-    <!-- The entire background lives here -->
-    <section class="fabric">
-      <!-- Hero logo: locked 25% from top of background -->
+    <!-- Fabric background as a real image (height-locked) -->
+    <section class="fabric" aria-label="Templar fabric background">
+      <img src="background.png" alt="" class="fabric-img" />
+
+      <!-- Hero locked to 25% of fabric height -->
       <div class="hero">
         <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
       </div>
 
-      <!-- Copyright: locked to bottom edge of background -->
-      <div class="copyright">
-        © 2025 Milites Templi. All rights reserved.
-      </div>
+      <!-- Copyright pinned to fabric bottom -->
+      <div class="copyright">© 2025 Milites Templi. All rights reserved.</div>
     </section>
   </main>
 
