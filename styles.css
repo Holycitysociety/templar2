@@ -1,19 +1,21 @@
 :root{
   --container: 1200px;
 
-  /* Header */
+  /* Header sizes */
   --header-h-desktop: 56px;
   --header-h-mobile: 56px;
+
+  /* Header logo sizes */
   --brand-logo-desktop: 24px;
   --brand-logo-mobile: 14px;     /* ~40% smaller on mobile */
 
   /* Fabric controls */
-  --fabric-height: 100svh;       /* lock total height; increase if you want taller than viewport */
-  --hero-center: 25%;            /* hero center point as % of fabric height */
-  --copyright-pad: 10px;         /* distance from bottom edge */
+  --fabric-height: 100svh;       /* total fabric height; bump to 110svh/120svh if desired */
+  --hero-center: 25%;            /* hero center as % of fabric height */
+  --copyright-pad: 10px;         /* distance from fabric bottom */
 
-  /* Overscroll / page background — sampled off-white to match fabric top */
-  --fabric-offwhite: #f5f3ec;    /* tweak if your eye-dropper yields a different hex */
+  /* Overscroll / page background — match top off-white of fabric */
+  --fabric-offwhite: #f5f3ec;
 }
 
 /* Reset & base */
@@ -21,7 +23,7 @@
 html, body{
   margin: 0;
   padding: 0;
-  background: var(--fabric-offwhite);  /* pull-down/overscroll shows this off-white */
+  background: var(--fabric-offwhite);  /* overscroll/pull-down color */
 }
 body{
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
@@ -37,7 +39,7 @@ body{
   position:fixed; top:0; left:0; right:0;
   height:var(--header-h-desktop);
   display:flex; align-items:center;
-  background: transparent;       /* stays transparent over fabric */
+  background: transparent;
   z-index:1000;
 }
 .header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; }
@@ -48,16 +50,18 @@ body{
 .menu-icon{ width:18px; height:18px; fill: currentColor; }
 .nav{ display:none; }
 
-/* Keep content below fixed header */
-#content{ padding-top:var(--header-h-desktop); }
+/* ---------- NO GAP ABOVE FABRIC ---------- */
+#content{ padding-top: 0; }  /* ensure fabric touches the very top */
 
-/* ---------- FABRIC SECTION ---------- */
+/* Fabric starts at the top under the fixed header.
+   We add INTERNAL top padding so overlays don't sit under the header. */
 .fabric{
   position: relative;
-  height: var(--fabric-height);   /* LOCK HEIGHT; width floats to keep aspect ratio */
+  height: var(--fabric-height);
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
+  padding-top: var(--header-h-desktop); /* internal offset only */
 }
 
 /* Fabric image: fill height, center horizontally, preserve aspect ratio */
@@ -67,16 +71,16 @@ body{
   height: 100%;
   width: auto;
   transform: translateX(-50%);
-  object-fit: cover;              /* safety; primary sizing via height */
+  object-fit: cover;     /* safety; primary sizing via height */
   pointer-events: none;
   user-select: none;
 }
 
-/* Hero locked relative to fabric */
+/* Hero locked relative to fabric (25% from fabric top) */
 .hero{
   position: absolute;
   left: 50%;
-  top: var(--hero-center);
+  top: calc(var(--hero-center) + var(--header-h-desktop));
   transform: translate(-50%, -50%);
   display:flex; align-items:center; justify-content:center;
   text-align:center;
@@ -87,13 +91,13 @@ body{
   height: auto; display:block;
 }
 
-/* Copyright locked to fabric bottom */
+/* Copyright pinned to fabric bottom */
 .copyright{
   position: absolute;
   left: 50%;
   bottom: var(--copyright-pad);
   transform: translateX(-50%);
-  color: rgba(0,0,0,0.65);        /* legible on the lighter fabric; adjust if needed */
+  color: rgba(0,0,0,0.65);
   font-size: 0.85rem;
   text-align: center;
   padding: 4px 8px;
@@ -103,8 +107,13 @@ body{
 /* Mobile */
 @media (max-width: 899px){
   .site-header{ height: var(--header-h-mobile); }
-  #content{ padding-top: var(--header-h-mobile); }
+  #content{ padding-top: 0; }             /* still no outer gap */
+  .fabric{ padding-top: var(--header-h-mobile); } /* internal offset scales */
+
   .brand-logo{ height: var(--brand-logo-mobile); }
+  .hero{
+    top: calc(var(--hero-center) + var(--header-h-mobile));
+  }
   .hero-logo{
     width: min(94vw, 640px);
     max-width: calc(100% - 24px);
