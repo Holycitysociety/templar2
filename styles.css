@@ -7,67 +7,77 @@
   --brand-logo-desktop: 24px;
   --brand-logo-mobile: 14px;     /* ~40% smaller on mobile */
 
-  /* Background aspect ratio (height / width). If your image isn't square, set the real ratio.
-     Example: 0.75 for 3:4 (H/W), 1.333 for 4:3, etc. */
-  --bg-aspect: 1;
+  /* Fabric controls */
+  --fabric-height: 100svh;       /* lock total height; increase if you want taller than viewport */
+  --hero-center: 25%;            /* hero center point as % of fabric height */
+  --copyright-pad: 10px;         /* distance from bottom edge */
 
-  /* Hero placement: center of the logo at 25% of the background height */
-  --hero-center: 25%;
-
-  /* Copyright spacing from bottom of background */
-  --copyright-pad: 10px;
+  /* Overscroll / page background — sampled off-white to match fabric top */
+  --fabric-offwhite: #f5f3ec;    /* tweak if your eye-dropper yields a different hex */
 }
 
 /* Reset & base */
 *{ box-sizing: border-box; }
-html, body{ margin: 0; padding: 0; background:#000; }  /* black fallback during load */
+html, body{
+  margin: 0;
+  padding: 0;
+  background: var(--fabric-offwhite);  /* pull-down/overscroll shows this off-white */
+}
 body{
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  color: #1d1d1f;
-  line-height: 1.45;
-  min-height: 100svh;
+  color:#1d1d1f; line-height:1.45;
+  min-height:100svh;
 }
 
 /* Container */
 .container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 16px; }
 
-/* Fixed header */
+/* Fixed transparent header */
 .site-header{
-  position: fixed; top: 0; left: 0; right: 0;
-  height: var(--header-h-desktop);
-  display: flex; align-items: center;
-  background: transparent;
-  z-index: 1000;
+  position:fixed; top:0; left:0; right:0;
+  height:var(--header-h-desktop);
+  display:flex; align-items:center;
+  background: transparent;       /* stays transparent over fabric */
+  z-index:1000;
 }
 .header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; }
-.brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
+.brand-logo{ height:var(--brand-logo-desktop); width:auto; display:block; }
 .menu-toggle{
-  background: transparent; border: none; color:#1d1d1f;
-  display:flex; align-items:center; justify-content:center; padding:4px; cursor:pointer;
+  background:transparent; border:none; padding:4px; cursor:pointer; color:#1d1d1f;
 }
 .menu-icon{ width:18px; height:18px; fill: currentColor; }
 .nav{ display:none; }
 
 /* Keep content below fixed header */
-#content{ padding-top: var(--header-h-desktop); }
+#content{ padding-top:var(--header-h-desktop); }
 
-/* The scrollable background canvas */
+/* ---------- FABRIC SECTION ---------- */
 .fabric{
   position: relative;
+  height: var(--fabric-height);   /* LOCK HEIGHT; width floats to keep aspect ratio */
+  min-height: 100vh;
   width: 100%;
-  /* Show the full image height by aspect ratio; fit width exactly */
-  height: calc(100vw * var(--bg-aspect));
-  min-height: 100vh;                            /* never smaller than the viewport */
-  background: url("background.png") top center / 100% auto no-repeat;
-  background-attachment: scroll;                /* background moves with the page */
+  overflow: hidden;
 }
 
-/* Hero locked relative to the background */
+/* Fabric image: fill height, center horizontally, preserve aspect ratio */
+.fabric-img{
+  position: absolute;
+  top: 0; left: 50%;
+  height: 100%;
+  width: auto;
+  transform: translateX(-50%);
+  object-fit: cover;              /* safety; primary sizing via height */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Hero locked relative to fabric */
 .hero{
   position: absolute;
   left: 50%;
   top: var(--hero-center);
-  transform: translate(-50%, -50%);             /* center the logo at that point */
+  transform: translate(-50%, -50%);
   display:flex; align-items:center; justify-content:center;
   text-align:center;
 }
@@ -77,25 +87,24 @@ body{
   height: auto; display:block;
 }
 
-/* Copyright locked to bottom of the background */
+/* Copyright locked to fabric bottom */
 .copyright{
   position: absolute;
   left: 50%;
   bottom: var(--copyright-pad);
   transform: translateX(-50%);
-  color: rgba(255,255,255,0.85);
+  color: rgba(0,0,0,0.65);        /* legible on the lighter fabric; adjust if needed */
   font-size: 0.85rem;
   text-align: center;
   padding: 4px 8px;
-  pointer-events: none; /* purely presentational */
+  pointer-events: none;
 }
 
-/* Mobile tweaks */
+/* Mobile */
 @media (max-width: 899px){
   .site-header{ height: var(--header-h-mobile); }
   #content{ padding-top: var(--header-h-mobile); }
   .brand-logo{ height: var(--brand-logo-mobile); }
-
   .hero-logo{
     width: min(94vw, 640px);
     max-width: calc(100% - 24px);
