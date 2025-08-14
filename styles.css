@@ -1,69 +1,108 @@
 :root{
   --container: 1200px;
-  --header-h: 56px;
+
+  /* Header */
+  --header-h-desktop: 56px;
+  --header-h-mobile: 56px;
+  --brand-logo-desktop: 24px;
+  --brand-logo-mobile: 14px;     /* ~40% smaller on mobile */
+
+  /* Background aspect ratio (height / width). If your image isn't square, set the real ratio.
+     Example: 0.75 for 3:4 (H/W), 1.333 for 4:3, etc. */
+  --bg-aspect: 1;
+
+  /* Hero placement: center of the logo at 25% of the background height */
+  --hero-center: 25%;
+
+  /* Copyright spacing from bottom of background */
+  --copyright-pad: 10px;
 }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;height:100%}
-
+/* Reset & base */
+*{ box-sizing: border-box; }
+html, body{ margin: 0; padding: 0; background:#000; }  /* black fallback during load */
 body{
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
   color: #1d1d1f;
   line-height: 1.45;
-  background-color: #000; /* default behind fabric image */
-  display: flex;
-  flex-direction: column;
-}
-
-/* Fixed full-viewport background image */
-body::before{
-  content:"";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: url("background.png") top center / cover no-repeat;
+  min-height: 100svh;
 }
 
 /* Container */
-.container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 16px;}
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 16px; }
 
-/* Header */
+/* Fixed header */
 .site-header{
-  position: sticky; top:0; z-index:1000;
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--header-h-desktop);
+  display: flex; align-items: center;
   background: transparent;
-  height: var(--header-h);
-  display:flex; align-items:center;
+  z-index: 1000;
 }
-.header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
-.brand-logo{height:24px;width:auto;display:block;}
-.menu-toggle{background:transparent;border:none;color:#1d1d1f;display:flex;align-items:center;justify-content:center;padding:4px;cursor:pointer}
-.menu-icon{width:18px;height:18px;fill:currentColor}
+.header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; }
+.brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
+.menu-toggle{
+  background: transparent; border: none; color:#1d1d1f;
+  display:flex; align-items:center; justify-content:center; padding:4px; cursor:pointer;
+}
+.menu-icon{ width:18px; height:18px; fill: currentColor; }
+.nav{ display:none; }
 
-/* Hero section */
+/* Keep content below fixed header */
+#content{ padding-top: var(--header-h-desktop); }
+
+/* The scrollable background canvas */
+.fabric{
+  position: relative;
+  width: 100%;
+  /* Show the full image height by aspect ratio; fit width exactly */
+  height: calc(100vw * var(--bg-aspect));
+  min-height: 100vh;                            /* never smaller than the viewport */
+  background: url("background.png") top center / 100% auto no-repeat;
+  background-attachment: scroll;                /* background moves with the page */
+}
+
+/* Hero locked relative to the background */
 .hero{
-  display:flex;align-items:center;justify-content:center;
-  min-height: 60vh;
+  position: absolute;
+  left: 50%;
+  top: var(--hero-center);
+  transform: translate(-50%, -50%);             /* center the logo at that point */
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
 }
-.hero-inner{text-align:center;}
 .hero-logo{
-  width: min(92vw, 720px);
-  height: auto;
+  width: min(92vw, 760px);
+  max-width: calc(100% - 32px);
+  height: auto; display:block;
 }
 
-/* Spacer pushes copyright to bottom of background */
-.spacer{
-  height: 40vh;
-}
-
-/* Copyright styling */
+/* Copyright locked to bottom of the background */
 .copyright{
-  text-align: center;
+  position: absolute;
+  left: 50%;
+  bottom: var(--copyright-pad);
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.85);
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.8);
-  padding: 16px;
+  text-align: center;
+  padding: 4px 8px;
+  pointer-events: none; /* purely presentational */
 }
 
-/* iOS safe area */
+/* Mobile tweaks */
+@media (max-width: 899px){
+  .site-header{ height: var(--header-h-mobile); }
+  #content{ padding-top: var(--header-h-mobile); }
+  .brand-logo{ height: var(--brand-logo-mobile); }
+
+  .hero-logo{
+    width: min(94vw, 640px);
+    max-width: calc(100% - 24px);
+  }
+}
+
+/* iOS safe areas */
 @supports(padding:max(0px)){
   .site-header{
     padding-left:max(env(safe-area-inset-left),0);
