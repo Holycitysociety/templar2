@@ -8,22 +8,31 @@
   --brand-logo-mobile: 14px; /* ~40% smaller on mobile */
 
   /* Colors */
-  --fabric-offwhite: #f5f3ec; /* matches fabric top for overscroll */
+  --fabric-offwhite: #f5f3ec; /* overscroll/top */
   --ink: #1d1d1f;
 }
 
 /* Base/reset */
 *{ box-sizing: border-box; }
-html, body{
-  margin: 0;
-  padding: 0;
-  background: var(--fabric-offwhite);   /* overscroll/pull-down area */
+
+/* Keep overscroll color on <html>, but let <body> be transparent so bg image shows */
+html{
+  margin: 0; padding: 0;
+  background: var(--fabric-offwhite);
 }
 body{
+  margin: 0; padding: 0;
+  background: transparent;               /* <-- important */
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
   color: var(--ink);
   line-height: 1.45;
   min-height: 100svh;
+}
+
+/* Foreground layer (header + main) above the bg image */
+.page-layer{
+  position: relative;
+  z-index: 1;                             /* <-- sits over #parallax-bg (z:0) */
 }
 
 /* Container */
@@ -35,7 +44,6 @@ body{
   height: var(--header-h-desktop);
   display: flex; align-items: center;
   background: transparent;
-  z-index: 1000;
 }
 .header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; }
 .brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
@@ -43,23 +51,18 @@ body{
 .menu-icon{ width:18px; height:18px; fill: currentColor; }
 .nav{ display:none; }
 
-/* No outer gap; content starts at top; we'll pad sections internally */
+/* No outer gap; sections pad themselves to clear the fixed header */
 #content{ padding-top: 0; }
 
-/* ===== Fixed parallax background image =====
-   - Fills full width (100vw)
-   - Height auto to keep aspect ratio
-   - Fixed behind content, translated by JS so top->bottom maps to scroll 0->end
-*/
+/* ===== Fixed parallax background image ===== */
 #parallax-bg{
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
   height: auto;
-  z-index: -1;
+  z-index: 0;                             /* <-- not negative anymore */
   will-change: transform;
   pointer-events: none; user-select: none;
-  /* Prevent blurry downscaling on some mobile GPUs */
   image-rendering: -webkit-optimize-contrast;
 }
 
@@ -67,7 +70,7 @@ body{
 .hero{
   min-height: calc(100vh - var(--header-h-desktop));
   display:flex; align-items:center; justify-content:center;
-  padding-top: var(--header-h-desktop); /* clear the fixed header */
+  padding-top: var(--header-h-desktop);   /* clear the fixed header */
 }
 .hero-inner{ text-align:center; }
 .hero-logo{
@@ -77,17 +80,16 @@ body{
 }
 
 .section{
-  /* filler sections so you can add content later;
-     adjust min-height to taste or remove once real content is in */
   min-height: 100vh;
   display:flex; align-items:center; justify-content:center;
+  /* background remains transparent so the image shows */
 }
 
-/* Copyright as normal content near the end */
 .copyright-wrap{
   min-height: 40vh;
   display:flex; align-items:flex-end;
   padding-bottom: 24px;
+  /* transparent so background image remains visible till the end */
 }
 .copyright{
   width: 100%;
@@ -100,6 +102,7 @@ body{
 @media (max-width: 899px){
   .site-header{ height: var(--header-h-mobile); }
   .brand-logo{ height: var(--brand-logo-mobile); }
+
   .hero{
     min-height: calc(100vh - var(--header-h-mobile));
     padding-top: var(--header-h-mobile);
