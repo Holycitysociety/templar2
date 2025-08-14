@@ -6,36 +6,45 @@
   <title>Milites Templi</title>
   <meta name="description" content="Milites Templi — discreet custody, settlement, and protection." />
   <link rel="preload" href="headerlogo.png.jpeg" as="image" />
+  <link rel="preload" href="logo.PNG" as="image" />
   <link rel="preload" href="Background.jpeg" as="image" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Transparent Header -->
   <header class="site-header" role="banner">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Milites Templi home">
         <img src="headerlogo.png.jpeg" alt="Milites Templi logo" class="brand-logo" />
       </a>
+
+      <!-- Three-dot menu -->
       <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
-        <!-- three-dot icon -->
         <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="5" cy="12" r="2" fill="currentColor" />
-          <circle cx="12" cy="12" r="2" fill="currentColor" />
-          <circle cx="19" cy="12" r="2" fill="currentColor" />
+          <circle cx="5" cy="12" r="2" />
+          <circle cx="12" cy="12" r="2" />
+          <circle cx="19" cy="12" r="2" />
         </svg>
       </button>
+
       <nav id="site-nav" class="nav" aria-label="Primary"></nav>
     </div>
   </header>
+
   <main id="content">
+    <!-- Hero locked inside the white band of the fabric background -->
     <section class="hero">
       <div class="container hero-inner">
-        <img src="/assets/logo.png" alt="Milites Templi crest" class="hero-logo" />
+        <img src="logo.PNG" alt="Milites Templi crest" class="hero-logo" />
       </div>
     </section>
+
+    <!-- Black section fills the remainder -->
     <section class="flag-black">
       <div class="container black-inner"></div>
     </section>
   </main>
+
   <script src="script.js" defer></script>
 </body>
 </html>
