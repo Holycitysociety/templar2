@@ -1,8 +1,9 @@
 /* Fabric split background — hero locked to white band */
 :root{
   --container: 1200px;
-  --header-h: 56px;      /* compact header */
-  --white-band: 60svh;   /* height of white area in the background; tweak to align seam */
+  --header-h: 56px;
+  --white-band: 66svh;   /* was 60svh — start here; nudge up/down to taste */
+  --seam-push: 6svh;     /* new: extra vertical stretch to push seam lower */
 }
 
 *{box-sizing:border-box}
