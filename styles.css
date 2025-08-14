@@ -1,132 +1,108 @@
 :root{
   --container: 1200px;
 
-  /* Header sizes */
+  /* Header */
   --header-h-desktop: 56px;
   --header-h-mobile: 56px;
-
-  /* Header logo sizes */
   --brand-logo-desktop: 24px;
-  --brand-logo-mobile: 14px;   /* ~40% smaller on mobile */
-
-  /* Scroll program */
-  --sections: 5;               /* total page height = sections * 100vh */
-  --max-zoom: 1.9;             /* final scale at bottom; tweak to taste (1.6–2.2) */
-
-  /* Overlay placement on image coordinates (not viewport) */
-  --hero-center: 25%;          /* hero center (% of image height) */
-  --copyright-pad: 10px;       /* px from image bottom */
+  --brand-logo-mobile: 14px; /* ~40% smaller on mobile */
 
   /* Colors */
-  --fabric-offwhite: #f5f3ec;  /* off-white overscroll/top */
+  --fabric-offwhite: #f5f3ec; /* matches fabric top for overscroll */
+  --ink: #1d1d1f;
 }
 
-/* Reset & base */
+/* Base/reset */
 *{ box-sizing: border-box; }
-html{
-  margin:0; padding:0;
-  background: var(--fabric-offwhite); /* overscroll/pull-down color */
+html, body{
+  margin: 0;
+  padding: 0;
+  background: var(--fabric-offwhite);   /* overscroll/pull-down area */
 }
 body{
-  margin:0; padding:0;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  color:#1d1d1f; line-height:1.45;
-  /* The rest of the page is visually the image; no plain color needed here */
+  color: var(--ink);
+  line-height: 1.45;
+  min-height: 100svh;
 }
 
 /* Container */
 .container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 16px; }
 
-/* Fixed transparent header */
+/* Fixed, transparent header */
 .site-header{
-  position:fixed; top:0; left:0; right:0;
-  height:var(--header-h-desktop);
-  display:flex; align-items:center;
+  position: fixed; top:0; left:0; right:0;
+  height: var(--header-h-desktop);
+  display: flex; align-items: center;
   background: transparent;
-  z-index:1000;
+  z-index: 1000;
 }
 .header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; }
-.brand-logo{ height:var(--brand-logo-desktop); width:auto; display:block; }
-.menu-toggle{ background:transparent; border:none; padding:4px; cursor:pointer; color:#1d1d1f; }
+.brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
+.menu-toggle{ background:transparent; border:none; padding:4px; cursor:pointer; color:var(--ink); }
 .menu-icon{ width:18px; height:18px; fill: currentColor; }
 .nav{ display:none; }
 
-/* ===== Scroll track and sticky stage ===== */
-#track{
-  /* Total scrollable height */
-  height: calc(var(--sections) * 100vh);
-  /* remove any gap under the header; the stage handles its own offset */
-  padding-top: 0;
-}
-.stage{
-  position: sticky;
-  top: 0;
-  height: 100vh;     /* fills viewport while track scrolls underneath */
-  overflow: hidden;
-}
+/* No outer gap; content starts at top; we'll pad sections internally */
+#content{ padding-top: 0; }
 
-/* ===== Zoom layer =====
-   - We simulate one giant image spanning the full scroll by scaling from 1 → max
-   - progress (0→1) is written by JS into --progress
+/* ===== Fixed parallax background image =====
+   - Fills full width (100vw)
+   - Height auto to keep aspect ratio
+   - Fixed behind content, translated by JS so top->bottom maps to scroll 0->end
 */
-:root{ --progress: 0; } /* default */
-.zoom-layer{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-origin: top center;
-  transform: scale(calc(1 + var(--progress) * (var(--max-zoom) - 1)));
-}
-
-/* The fabric image inside the zoom layer */
-.fabric-img{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;           /* keep width filled; crop vertically as zoom increases */
-  object-position: center top; /* keep white/black seam predictable */
+#parallax-bg{
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: auto;
+  z-index: -1;
+  will-change: transform;
   pointer-events: none; user-select: none;
+  /* Prevent blurry downscaling on some mobile GPUs */
+  image-rendering: -webkit-optimize-contrast;
 }
 
-/* Overlays locked in "image space" so they move/scale with the fabric */
+/* ===== Content sections ===== */
 .hero{
-  position: absolute;
-  left: 50%;
-  top: calc(var(--hero-center));
-  transform: translate(-50%, -50%);
+  min-height: calc(100vh - var(--header-h-desktop));
   display:flex; align-items:center; justify-content:center;
-  text-align:center;
-  /* Lift below the header visually by reserving header height as safe zone */
-  margin-top: var(--header-h-desktop);
+  padding-top: var(--header-h-desktop); /* clear the fixed header */
 }
+.hero-inner{ text-align:center; }
 .hero-logo{
   width: min(92vw, 760px);
   max-width: calc(100% - 32px);
-  height:auto; display:block;
-}
-.copyright{
-  position: absolute;
-  left: 50%;
-  bottom: var(--copyright-pad);
-  transform: translateX(-50%);
-  color: rgba(0,0,0,0.65);
-  font-size: 0.85rem;
-  text-align: center;
-  padding: 4px 8px;
-  pointer-events: none;
+  height:auto;
 }
 
-/* Optional: a content block after the hero inside the same scroll track
-   (purely for spacing if you want it; content can also live elsewhere) */
-.content.after{ display:none; } /* hidden placeholder */
+.section{
+  /* filler sections so you can add content later;
+     adjust min-height to taste or remove once real content is in */
+  min-height: 100vh;
+  display:flex; align-items:center; justify-content:center;
+}
+
+/* Copyright as normal content near the end */
+.copyright-wrap{
+  min-height: 40vh;
+  display:flex; align-items:flex-end;
+  padding-bottom: 24px;
+}
+.copyright{
+  width: 100%;
+  text-align: center;
+  color: rgba(0,0,0,0.65);
+  margin: 0 auto;
+}
 
 /* Mobile tweaks */
 @media (max-width: 899px){
   .site-header{ height: var(--header-h-mobile); }
   .brand-logo{ height: var(--brand-logo-mobile); }
   .hero{
-    margin-top: var(--header-h-mobile);
+    min-height: calc(100vh - var(--header-h-mobile));
+    padding-top: var(--header-h-mobile);
   }
   .hero-logo{
     width: min(94vw, 640px);
