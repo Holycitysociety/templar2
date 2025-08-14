@@ -1,5 +1,5 @@
 const toggle = document.querySelector('.menu-toggle');
-const nav = document.getElementById('site-nav');
+const nav = document.querySelector('.nav');
 
 if (toggle && nav) {
   toggle.addEventListener('click', () => {
