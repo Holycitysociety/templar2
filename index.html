@@ -5,60 +5,51 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Milites Templi</title>
   <meta name="description" content="Milites Templi — discreet custody, settlement, and protection." />
-
-  <!-- Match browser chrome / overscroll to fabric off-white -->
-  <meta name="theme-color" content="#f5f3ec" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-  <!-- Preload key images -->
   <link rel="preload" href="headerlogo.png" as="image" />
   <link rel="preload" href="logo.png" as="image" />
-  <link rel="preload" href="background.png" as="image" />
-
+  <link rel="preload" href="background.jpeg" as="image" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Fixed, transparent header (above the bg image) -->
-  <header class="site-header page-layer" role="banner">
+  <!-- Transparent Header -->
+  <header class="site-header" role="banner">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Milites Templi home">
-        <img src="headerlogo.png" alt="Milites Templi" class="brand-logo" />
+        <img src="headerlogo.png" alt="Milites Templi logo" class="brand-logo" />
       </a>
-      <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+      <!-- Three-dot menu -->
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
         <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="5" cy="12" r="2" />
           <circle cx="12" cy="12" r="2" />
           <circle cx="19" cy="12" r="2" />
         </svg>
       </button>
-      <nav class="nav" aria-label="Primary"></nav>
+      <nav id="site-nav" class="nav" aria-label="Primary"></nav>
     </div>
   </header>
 
-  <!-- Parallax background image (fixed behind everything) -->
-  <img src="background.png" alt="" id="parallax-bg" aria-hidden="true" />
-
-  <!-- Foreground content (above the bg image) -->
-  <main id="content" class="page-layer">
-    <!-- FULL-VIEWPORT HERO SECTION -->
+  <main id="content">
     <section class="hero">
-      <!-- The logo is positioned at a viewport-relative offset -->
-      <div class="hero-anchor">
+      <div class="hero-inner">
         <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
       </div>
     </section>
 
-    <!-- Your additional sections (examples) -->
-    <section class="section"><div class="container"></div></section>
-    <section class="section"><div class="container"></div></section>
-    <section class="section"><div class="container"></div></section>
-    <section class="section"><div class="container"></div></section>
-
-    <section class="copyright-wrap">
+    <section class="content">
       <div class="container">
-        <p class="copyright">© 2025 Milites Templi. All rights reserved.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras bibendum...</p>
+        <p>More text here to force scrolling...</p>
+        <p>Another paragraph...</p>
+        <p>Keep going...</p>
+        <p>Bottom of page.</p>
       </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>© 2025 Milites Templi</p>
+    </footer>
   </main>
 
   <script src="script.js" defer></script>
