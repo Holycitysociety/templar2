@@ -1,122 +1,87 @@
-/* =========
-   Milites Templi — Fabric split background
-   Adjust white band height with --white-band
-   ========= */
+/* Fabric split background — hero locked to white band */
 :root{
-  --black:#0a0a0a;
-  --white:#ffffff;
-  --ink:#1d1d1f;
   --container: 1200px;
-
-  --header-h: 56px;   /* compact header height */
-  --white-band: 60svh;/* how tall the white fabric area is; tweak as needed */
+  --header-h: 56px;      /* compact header */
+  --white-band: 60svh;   /* height of white area in the background; tweak to align seam */
 }
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;height:100%}
+
+/* Use small viewport units so iOS toolbars don’t create gaps */
 body{
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  color: var(--ink);
-  background: var(--white);
+  color: #1d1d1f;
+  background: #ffffff;
   line-height: 1.45;
-
-  /* Use small viewport height to avoid iOS toolbar issues */
   min-height: 100svh;
   display: flex;
   flex-direction: column;
 }
 
-/* Fixed fabric split background covers the viewport */
+/* Fixed full-viewport background with your fabric image */
 body::before{
   content:"";
   position: fixed;
   inset: 0;
   z-index: -1;
   background: url("Background.jpeg") top center / 100% 100svh no-repeat;
-  background-color: var(--white);
+  background-color: #ffffff;
 }
 
-/* Containers */
+/* Container */
 .container{width:100%;max-width: var(--container);margin: 0 auto;padding: 0 16px;}
 
-/* ===== Header: small logo left, three-dots right ===== */
+/* Header: small logo left, three-dots right */
 .site-header{
   position: sticky; top:0; z-index:1000;
   background: transparent;
   height: var(--header-h);
   display:flex; align-items:center;
 }
+.header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.brand-logo{height:24px;width:auto;display:block;image-rendering:-webkit-optimize-contrast;}
+.menu-toggle{background:transparent;border:none;color:#1d1d1f;display:flex;align-items:center;justify-content:center;padding:4px;cursor:pointer}
+.menu-icon{width:18px;height:18px;fill:currentColor}
+.nav{display:none}
 
-.header-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  width: 100%;
-}
+/* Layout fills viewport below header */
+main{display:flex;flex-direction:column;min-height:calc(100svh - var(--header-h));}
 
-.brand-logo{
-  height:24px;  /* small, elegant */
-  width:auto;
-  display:block;
-  image-rendering: -webkit-optimize-contrast;
-}
-
-.menu-toggle{
-  background:transparent; border:none; color:var(--ink);
-  display:flex; align-items:center; justify-content:center;
-  padding:4px; cursor:pointer;
-}
-.menu-icon{ width:18px; height:18px; fill: currentColor; }
-.nav{ display:none; }
-
-/* ===== Layout beneath header should fill viewport ===== */
-main{
-  display:flex;
-  flex-direction:column;
-  min-height: calc(100svh - var(--header-h));
-}
-
-/* ===== Hero stays inside the white band ===== */
+/* HERO: stays entirely within the white band (white area minus header) */
 .hero{
-  display:flex; align-items:center; justify-content:center;
+  display:flex;align-items:center;justify-content:center;
   min-height: calc(var(--white-band) - var(--header-h));
-  padding: clamp(12px, 3.5vw, 28px) 0;  /* breathing room without spilling into black */
+  padding: clamp(12px, 3.5vw, 28px) 0; /* breathing room without spilling into black */
 }
-
-.hero-inner{ text-align:center; }
-
-/* Big hero logo; respects side padding */
+.hero-inner{text-align:center;}
 .hero-logo{
   width: min(92vw, 720px);
-  max-width: calc(100% - 32px); /* ~16px safety on each side */
-  height:auto;
+  max-width: calc(100% - 32px); /* ~16px side padding each side */
+  height: auto;
 }
 
-/* ===== Black section fills the remaining space ===== */
+/* Section that sits over the black band (background provides the color) */
 .flag-black{
+  flex: 1 0 auto;          /* fills remaining space */
+  display:flex;align-items:center;width:100%;
   color:#fff;
-  background: transparent; /* background image already provides black fabric */
-  flex: 1 0 auto;
-  display:flex;
-  align-items:center;
-  width: 100%;
 }
-.black-inner{width:100%; padding: clamp(36px, 6vw, 72px) 0;}
+.black-inner{width:100%;padding: clamp(36px, 6vw, 72px) 0;}
 
-/* -------- Larger screens -------- */
+/* Larger screens — nudge if needed */
 @media (min-width: 900px){
   :root{
     --header-h: 56px;
-    --white-band: 62svh; /* slightly taller white on laptop; adjust as you like */
+    --white-band: 60svh;   /* adjust here if laptop seam needs alignment */
   }
-  .brand-logo{ height:24px; }
-  .menu-icon{ width:18px; height:18px; }
-  .hero-logo{ width: min(60vw, 820px); } /* allow larger hero on laptop */
+  .brand-logo{height:24px;}
+  .menu-icon{width:18px;height:18px;}
+  .hero-logo{width: min(60vw, 820px);}
 }
 
-/* iOS safe areas — avoid tiny white slivers on notched devices */
+/* iOS safe areas (avoid tiny slivers) */
 @supports(padding:max(0px)){
-  .flag-black{ padding-bottom: max(env(safe-area-inset-bottom), 0); }
   .site-header{
     padding-left:max(env(safe-area-inset-left),0);
     padding-right:max(env(safe-area-inset-right),0);
