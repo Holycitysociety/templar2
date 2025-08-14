@@ -7,28 +7,31 @@
 
   /* Header logo sizes */
   --brand-logo-desktop: 24px;
-  --brand-logo-mobile: 14px;     /* ~40% smaller on mobile */
+  --brand-logo-mobile: 14px;   /* ~40% smaller on mobile */
 
-  /* Fabric controls */
-  --fabric-height: 100svh;       /* total fabric height; bump to 110svh/120svh if desired */
-  --hero-center: 25%;            /* hero center as % of fabric height */
-  --copyright-pad: 10px;         /* distance from fabric bottom */
+  /* Scroll program */
+  --sections: 5;               /* total page height = sections * 100vh */
+  --max-zoom: 1.9;             /* final scale at bottom; tweak to taste (1.6–2.2) */
 
-  /* Overscroll / page background — match top off-white of fabric */
-  --fabric-offwhite: #f5f3ec;
+  /* Overlay placement on image coordinates (not viewport) */
+  --hero-center: 25%;          /* hero center (% of image height) */
+  --copyright-pad: 10px;       /* px from image bottom */
+
+  /* Colors */
+  --fabric-offwhite: #f5f3ec;  /* off-white overscroll/top */
 }
 
 /* Reset & base */
 *{ box-sizing: border-box; }
-html, body{
-  margin: 0;
-  padding: 0;
-  background: var(--fabric-offwhite);  /* overscroll/pull-down color */
+html{
+  margin:0; padding:0;
+  background: var(--fabric-offwhite); /* overscroll/pull-down color */
 }
 body{
+  margin:0; padding:0;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
   color:#1d1d1f; line-height:1.45;
-  min-height:100svh;
+  /* The rest of the page is visually the image; no plain color needed here */
 }
 
 /* Container */
@@ -44,54 +47,64 @@ body{
 }
 .header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; }
 .brand-logo{ height:var(--brand-logo-desktop); width:auto; display:block; }
-.menu-toggle{
-  background:transparent; border:none; padding:4px; cursor:pointer; color:#1d1d1f;
-}
+.menu-toggle{ background:transparent; border:none; padding:4px; cursor:pointer; color:#1d1d1f; }
 .menu-icon{ width:18px; height:18px; fill: currentColor; }
 .nav{ display:none; }
 
-/* ---------- NO GAP ABOVE FABRIC ---------- */
-#content{ padding-top: 0; }  /* ensure fabric touches the very top */
-
-/* Fabric starts at the top under the fixed header.
-   We add INTERNAL top padding so overlays don't sit under the header. */
-.fabric{
-  position: relative;
-  height: var(--fabric-height);
-  min-height: 100vh;
-  width: 100%;
+/* ===== Scroll track and sticky stage ===== */
+#track{
+  /* Total scrollable height */
+  height: calc(var(--sections) * 100vh);
+  /* remove any gap under the header; the stage handles its own offset */
+  padding-top: 0;
+}
+.stage{
+  position: sticky;
+  top: 0;
+  height: 100vh;     /* fills viewport while track scrolls underneath */
   overflow: hidden;
-  padding-top: var(--header-h-desktop); /* internal offset only */
 }
 
-/* Fabric image: fill height, center horizontally, preserve aspect ratio */
+/* ===== Zoom layer =====
+   - We simulate one giant image spanning the full scroll by scaling from 1 → max
+   - progress (0→1) is written by JS into --progress
+*/
+:root{ --progress: 0; } /* default */
+.zoom-layer{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-origin: top center;
+  transform: scale(calc(1 + var(--progress) * (var(--max-zoom) - 1)));
+}
+
+/* The fabric image inside the zoom layer */
 .fabric-img{
   position: absolute;
-  top: 0; left: 50%;
+  inset: 0;
+  width: 100%;
   height: 100%;
-  width: auto;
-  transform: translateX(-50%);
-  object-fit: cover;     /* safety; primary sizing via height */
-  pointer-events: none;
-  user-select: none;
+  object-fit: cover;           /* keep width filled; crop vertically as zoom increases */
+  object-position: center top; /* keep white/black seam predictable */
+  pointer-events: none; user-select: none;
 }
 
-/* Hero locked relative to fabric (25% from fabric top) */
+/* Overlays locked in "image space" so they move/scale with the fabric */
 .hero{
   position: absolute;
   left: 50%;
-  top: calc(var(--hero-center) + var(--header-h-desktop));
+  top: calc(var(--hero-center));
   transform: translate(-50%, -50%);
   display:flex; align-items:center; justify-content:center;
   text-align:center;
+  /* Lift below the header visually by reserving header height as safe zone */
+  margin-top: var(--header-h-desktop);
 }
 .hero-logo{
   width: min(92vw, 760px);
   max-width: calc(100% - 32px);
-  height: auto; display:block;
+  height:auto; display:block;
 }
-
-/* Copyright pinned to fabric bottom */
 .copyright{
   position: absolute;
   left: 50%;
@@ -104,15 +117,16 @@ body{
   pointer-events: none;
 }
 
-/* Mobile */
+/* Optional: a content block after the hero inside the same scroll track
+   (purely for spacing if you want it; content can also live elsewhere) */
+.content.after{ display:none; } /* hidden placeholder */
+
+/* Mobile tweaks */
 @media (max-width: 899px){
   .site-header{ height: var(--header-h-mobile); }
-  #content{ padding-top: 0; }             /* still no outer gap */
-  .fabric{ padding-top: var(--header-h-mobile); } /* internal offset scales */
-
   .brand-logo{ height: var(--brand-logo-mobile); }
   .hero{
-    top: calc(var(--hero-center) + var(--header-h-mobile));
+    margin-top: var(--header-h-mobile);
   }
   .hero-logo{
     width: min(94vw, 640px);
