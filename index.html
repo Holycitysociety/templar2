@@ -18,8 +18,8 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Fixed, transparent header -->
-  <header class="site-header" role="banner">
+  <!-- Fixed, transparent header (above the bg image) -->
+  <header class="site-header page-layer" role="banner">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Milites Templi home">
         <img src="headerlogo.png" alt="Milites Templi" class="brand-logo" />
@@ -35,24 +35,24 @@
     </div>
   </header>
 
-  <!-- The fixed parallax background image lives behind everything -->
+  <!-- Fixed parallax background image (now z-index:0, above html/bg) -->
   <img src="background.png" alt="" id="parallax-bg" aria-hidden="true" />
 
-  <main id="content">
-    <!-- HERO (regular content; background moves behind it) -->
+  <!-- All foreground content sits above the bg image -->
+  <main id="content" class="page-layer">
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-inner">
         <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
       </div>
     </section>
 
-    <!-- Add as many sections as you want; background will map top->bottom across total scroll -->
+    <!-- Add as many sections as you want; bg maps top->bottom across total scroll -->
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
 
-    <!-- Copyright (as foreground content; background will already be at its bottom here) -->
     <section class="copyright-wrap">
       <div class="container">
         <p class="copyright">© 2025 Milites Templi. All rights reserved.</p>
