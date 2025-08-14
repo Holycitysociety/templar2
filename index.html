@@ -35,19 +35,20 @@
     </div>
   </header>
 
-  <!-- Fixed parallax background image (now z-index:0, above html/bg) -->
+  <!-- Parallax background image (fixed behind everything) -->
   <img src="background.png" alt="" id="parallax-bg" aria-hidden="true" />
 
-  <!-- All foreground content sits above the bg image -->
+  <!-- Foreground content (above the bg image) -->
   <main id="content" class="page-layer">
-    <!-- HERO -->
+    <!-- FULL-VIEWPORT HERO SECTION -->
     <section class="hero">
-      <div class="container hero-inner">
+      <!-- The logo is positioned at a viewport-relative offset -->
+      <div class="hero-anchor">
         <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
       </div>
     </section>
 
-    <!-- Add as many sections as you want; bg maps top->bottom across total scroll -->
+    <!-- Your additional sections (examples) -->
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
