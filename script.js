@@ -1,6 +1,6 @@
 /**
  * Parallax background: map page scroll 0%→100% to image translate top→bottom.
- * Fixes: z-index layering so image is visible (no white overlay).
+ * (Foreground content sits above the image; hero logo position uses CSS only.)
  */
 (function(){
   const bg = document.getElementById('parallax-bg');
@@ -20,13 +20,12 @@
     const renderedHeight = vw * naturalRatio;
     const finalHeight = Math.max(renderedHeight, vh);
 
-    // document height
     docH = Math.max(
       document.documentElement.scrollHeight,
       document.body.scrollHeight
     );
-
     maxShift = Math.max(finalHeight - vh, 0);
+
     bg.style.height = finalHeight + 'px';
   }
 
@@ -38,15 +37,10 @@
     bg.style.transform = 'translate3d(0,' + y + 'px,0)';
   }
 
-  function init() {
-    calc(); onScroll();
-  }
+  function init() { calc(); onScroll(); }
 
-  if (!bg.complete) {
-    bg.addEventListener('load', init, { once: true });
-  } else {
-    init();
-  }
+  if (!bg.complete) bg.addEventListener('load', init, { once: true });
+  else init();
 
   window.addEventListener('resize', () => { calc(); onScroll(); });
   window.addEventListener('orientationchange', () => { calc(); onScroll(); });
