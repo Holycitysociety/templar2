@@ -1,55 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Milites Templi</title>
-  <meta name="description" content="Milites Templi — discreet custody, settlement, and protection." />
-  <link rel="preload" href="headerlogo.png" as="image" />
-  <link rel="preload" href="logo.png" as="image" />
-  <link rel="preload" href="background.jpeg" as="image" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <!-- Header -->
-  <header class="site-header" role="banner">
-    <div class="container header-inner">
-      <a class="brand" href="/" aria-label="Milites Templi home">
-        <img src="headerlogo.png" alt="Milites Templi logo" class="brand-logo" />
-      </a>
-
-      <!-- Three-dot menu -->
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
-        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="5" cy="12" r="2" />
-          <circle cx="12" cy="12" r="2" />
-          <circle cx="19" cy="12" r="2" />
+  <header class="site-header">
+    <div class="header-inner">
+      <img src="headerlogo.png" alt="Milites Templi" class="brand-logo" />
+      <button class="menu-toggle" aria-label="Menu">
+        <svg class="menu-icon" viewBox="0 0 24 24">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
-
-      <nav id="site-nav" class="nav" aria-label="Primary"></nav>
     </div>
   </header>
 
-  <main id="content">
-    <!-- Background section -->
+  <!-- Hero -->
+  <main>
     <section class="hero">
-      <div class="container hero-inner">
-        <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
+      <div class="hero-inner">
+        <img src="logo.png" alt="Milites Templi Logo" class="hero-logo" />
       </div>
     </section>
 
-    <!-- Solid black footer -->
-    <footer class="site-footer">
-      <div class="container">
-        <p>© 2025 Milites Templi</p>
-        <div class="social-icons">
-          <!-- Add your social icon <a> links here -->
-        </div>
-      </div>
-    </footer>
+    <!-- Spacer to push copyright to bottom of background -->
+    <div class="spacer"></div>
+
+    <!-- Copyright at bottom of background -->
+    <div class="copyright">
+      &copy; 2025 Milites Templi. All rights reserved.
+    </div>
   </main>
 
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
