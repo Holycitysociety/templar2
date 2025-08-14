@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Milites Templi</title>
   <meta name="description" content="Milites Templi — discreet custody, settlement, and protection." />
-  <link rel="preload" href="headerlogo.PNG" as="image" />
-  <link rel="preload" href="logo.PNG" as="image" />
-  <link rel="preload" href="Background.png" as="image" />
+  <link rel="preload" href="headerlogo.png" as="image" />
+  <link rel="preload" href="logo.png" as="image" />
+  <link rel="preload" href="background.png" as="image" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Transparent Header -->
+  <!-- Fixed header: small logo left, three-dots right -->
   <header class="site-header" role="banner">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Milites Templi home">
-        <img src="headerlogo.PNG" alt="Milites Templi logo" class="brand-logo" />
+        <img src="headerlogo.png" alt="Milites Templi logo" class="brand-logo" />
       </a>
       <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
         <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -29,16 +29,17 @@
   </header>
 
   <main id="content">
-    <!-- Hero locked inside the white band of the background -->
+    <!-- Spacer puts hero logo's CENTER ~25% down from top of background -->
+    <div class="spacer-25vh" aria-hidden="true"></div>
+
+    <!-- Hero logo (scrolls with page/background) -->
     <section class="hero">
-      <div class="container hero-inner">
-        <img src="logo.PNG" alt="Milites Templi crest" class="hero-logo" />
-      </div>
+      <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
     </section>
 
-    <!-- Black band area (the background provides the black color) -->
-    <section class="flag-black">
-      <div class="container black-inner"></div>
+    <!-- Space below; continues into the dark half of the background -->
+    <section class="after-hero">
+      <div class="container"></div>
     </section>
   </main>
 
