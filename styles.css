@@ -1,81 +1,148 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  background-color: #f5f4ef; /* matches fabric tone */
-  font-family: serif;
-  overflow-x: hidden;
+:root{
+  --container: 1200px;
+
+  /* Header sizes */
+  --header-h-desktop: 56px;
+  --header-h-mobile: 56px;
+
+  /* Header logo sizes */
+  --brand-logo-desktop: 24px;
+  --brand-logo-mobile: 14px; /* ~40% smaller on mobile */
+
+  /* Colors */
+  --fabric-offwhite: #f5f3ec; /* overscroll/top */
+  --ink: #1d1d1f;
+
+  /* Hero viewport-relative landing positions */
+  --hero-vpos-portrait: 33vh;   /* ~one third from top */
+  --hero-vpos-landscape: 50vh;  /* centered */
+
+  /* Current header height and vpos (set per orientation below) */
+  --header-h-current: var(--header-h-desktop);
+  --hero-vpos: var(--hero-vpos-landscape);
 }
 
-.parallax-container {
-  position: relative;
-  min-height: 100%;
-  width: 100%;
-  overflow-x: hidden;
-}
+/* Base/reset */
+*{ box-sizing: border-box; }
 
-.parallax-bg {
-  background: url('Background.jpeg') no-repeat center top;
-  background-size: cover;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  transform: translateZ(0);
+/* Overscroll color lives on html; body is transparent so bg image shows */
+html{
+  margin: 0; padding: 0;
+  background: var(--fabric-offwhite);
 }
-
-.site-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 10px 20px;
+body{
+  margin: 0; padding: 0;
   background: transparent;
-  z-index: 10;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  color: var(--ink);
+  line-height: 1.45;
+  min-height: 100svh;
 }
 
-.site-title {
-  font-size: 16px;
-  letter-spacing: 2px;
+/* Foreground layer (header + main) sits above the bg image */
+.page-layer{ position: relative; z-index: 1; }
+
+/* Container */
+.container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 16px; }
+
+/* Fixed, transparent header */
+.site-header{
+  position: fixed; top:0; left:0; right:0;
+  height: var(--header-h-desktop);
+  display: flex; align-items: center;
+  background: transparent;
+}
+.header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; }
+.brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
+.menu-toggle{ background:transparent; border:none; padding:4px; cursor:pointer; color:var(--ink); }
+.menu-icon{ width:18px; height:18px; fill: currentColor; }
+.nav{ display:none; }
+
+/* No outer gap; sections handle their own padding */
+#content{ padding-top: 0; }
+
+/* ===== Parallax background ===== */
+#parallax-bg{
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: auto;
+  z-index: 0; /* under content, above html background */
+  will-change: transform;
+  pointer-events: none; user-select: none;
+  image-rendering: -webkit-optimize-contrast;
 }
 
-.hero {
+/* ===== HERO SECTION =====
+   - full viewport high
+   - logo lands at a viewport-relative offset (var(--hero-vpos))
+   - header height is accounted for so logo doesn't hide under it
+*/
+.hero{
   position: relative;
-  height: 100vh;
+  height: 100vh;           /* full viewport */
+  overflow: visible;
 }
 
-.hero-logo {
+/* Anchor the logo at a viewport offset on initial load,
+   then it scrolls away naturally as a normal element. */
+.hero-anchor{
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  max-width: 80%;
+  top: calc(var(--hero-vpos) + var(--header-h-current)); /* viewport position + header */
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; justify-content: center;
+  width: 100%;
+  pointer-events: none; /* logo is decorative; remove if you want it clickable */
 }
 
-@media (orientation: portrait) {
-  .hero-logo {
-    top: 17%; /* lowered from 33% to raise logo higher */
-  }
+.hero-logo{
+  width: min(92vw, 760px);
+  max-width: calc(100% - 32px);
+  height: auto; display:block;
 }
 
-@media (orientation: landscape) {
-  .hero-logo {
-    top: 50%;
-    transform: translate(-50%, -50%);
-  }
+/* Content sections (examples) */
+.section{
+  min-height: 100vh;
+  display:flex; align-items:center; justify-content:center;
+  /* transparent so background shows through */
 }
 
-.content {
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
-  font-size: 18px;
-  line-height: 1.6;
+/* Copyright section */
+.copyright-wrap{
+  min-height: 40vh;
+  display:flex; align-items:flex-end;
+  padding-bottom: 24px;
 }
-
-.copyright {
+.copyright{
+  width: 100%;
   text-align: center;
-  padding: 20px;
-  font-size: 14px;
-  color: rgba(0,0,0,0.7);
+  color: rgba(0,0,0,0.65);
+  margin: 0 auto;
+}
+
+/* ----- Orientation & mobile tweaks ----- */
+@media (orientation: portrait){
+  :root{
+    --header-h-current: var(--header-h-mobile);
+    --hero-vpos: var(--hero-vpos-portrait);
+  }
+  .site-header{ height: var(--header-h-mobile); }
+  .brand-logo{ height: var(--brand-logo-mobile); }
+}
+
+@media (orientation: landscape){
+  :root{
+    --header-h-current: var(--header-h-desktop);
+    --hero-vpos: var(--hero-vpos-landscape);
+  }
+}
+
+/* iOS safe areas */
+@supports(padding:max(0px)){
+  .site-header{
+    padding-left:max(env(safe-area-inset-left),0);
+    padding-right:max(env(safe-area-inset-right),0);
+  }
 }
