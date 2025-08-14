@@ -14,7 +14,7 @@
   --ink: #1d1d1f;
 
   /* Hero viewport-relative landing positions */
-  --hero-vpos-portrait: 33vh;   /* ~one third from top */
+  --hero-vpos-portrait: 17vh;   /* ~one third from top */
   --hero-vpos-landscape: 50vh;  /* centered */
 
   /* Current header height and vpos (set per orientation below) */
