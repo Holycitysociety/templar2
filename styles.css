@@ -1,129 +1,81 @@
-:root {
-  --container: 1200px;
-  --header-h: 56px;
-  --hero-portrait-top: 17vh; /* Portrait top offset */
-}
-
-* {
-  box-sizing: border-box;
-}
-
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: #f5f4ef; /* matches fabric tone */
+  font-family: serif;
+  overflow-x: hidden;
 }
 
-/* Default font/colors */
-body {
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-  color: #1d1d1f;
-  line-height: 1.45;
-  min-height: 100vh;
-  background-color: #f5f5f0; /* matches fabric off-white */
+.parallax-container {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
-/* Parallax background */
-body::before {
-  content: "";
+.parallax-bg {
+  background: url('Background.jpeg') no-repeat center top;
+  background-size: cover;
   position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: url("background.jpeg") center top / cover no-repeat;
-  background-attachment: fixed;
-}
-
-/* Container */
-.container {
-  width: 100%;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: 0 16px;
-}
-
-/* Header */
-.site-header {
-  position: sticky;
   top: 0;
-  z-index: 1000;
-  background: transparent;
-  height: var(--header-h);
-  display: flex;
-  align-items: center;
-}
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  left: 0;
   width: 100%;
-}
-.brand-logo {
-  height: 24px;
-  width: auto;
-  display: block;
-}
-.menu-toggle {
-  background: transparent;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  cursor: pointer;
-}
-.menu-icon {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-.nav {
-  display: none;
+  height: 100%;
+  z-index: -1;
+  transform: translateZ(0);
 }
 
-/* HERO */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 10px 20px;
+  background: transparent;
+  z-index: 10;
+}
+
+.site-title {
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
 .hero {
   position: relative;
-  height: 100vh; /* Fill viewport */
-  display: flex;
-  justify-content: center;
+  height: 100vh;
 }
-.hero-inner {
+
+.hero-logo {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-}
-.hero-logo {
-  width: clamp(150px, 20vw, 300px);
-  height: auto;
+  max-width: 80%;
 }
 
-/* Portrait: logo at 17vh from top */
-@media screen and (max-aspect-ratio: 3/4) {
-  .hero-inner {
-    top: clamp(80px, var(--hero-portrait-top), 150px);
-    transform: translateX(-50%);
+@media (orientation: portrait) {
+  .hero-logo {
+    top: 17%; /* lowered from 33% to raise logo higher */
   }
 }
 
-/* Landscape + desktop: center vertically */
-@media screen and (min-aspect-ratio: 3/4) {
-  .hero-inner {
+@media (orientation: landscape) {
+  .hero-logo {
     top: 50%;
     transform: translate(-50%, -50%);
   }
 }
 
-/* Content section */
 .content {
-  background: transparent;
-  padding: 60px 0;
-  min-height: 200vh; /* force scroll for demo */
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
-/* Footer */
-.site-footer {
-  background: transparent;
+.copyright {
   text-align: center;
   padding: 20px;
   font-size: 14px;
+  color: rgba(0,0,0,0.7);
 }
