@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Fixed header: small logo left, three-dots right -->
+  <!-- Fixed header -->
   <header class="site-header" role="banner">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Milites Templi home">
@@ -19,9 +19,9 @@
       </a>
       <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
         <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="5" cy="12" r="2" />
-          <circle cx="12" cy="12" r="2" />
-          <circle cx="19" cy="12" r="2" />
+          <circle cx="5" cy="12" r="2"></circle>
+          <circle cx="12" cy="12" r="2"></circle>
+          <circle cx="19" cy="12" r="2"></circle>
         </svg>
       </button>
       <nav id="site-nav" class="nav" aria-label="Primary"></nav>
@@ -29,16 +29,19 @@
   </header>
 
   <main id="content">
-    <!-- Spacer puts hero logo's CENTER ~25% down from top of background -->
-    <div class="spacer-25vh" aria-hidden="true"></div>
+    <!-- Fabric background canvas (scrollable) -->
+    <section class="fabric">
+      <!-- Hero is positioned so its CENTER sits at 25% of the fabric height -->
+      <div class="hero">
+        <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
+      </div>
 
-    <!-- Hero logo (scrolls with page/background) -->
-    <section class="hero">
-      <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
+      <!-- Optional anchor at the bottom so you can always scroll to the end -->
+      <div class="fabric-bottom" aria-hidden="true"></div>
     </section>
 
-    <!-- Space below; continues into the dark half of the background -->
-    <section class="after-hero">
+    <!-- Room for future content below the fabric if you want -->
+    <section class="after-fabric">
       <div class="container"></div>
     </section>
   </main>
