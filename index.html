@@ -25,8 +25,8 @@
         <img src="headerlogo.png" alt="Milites Templi" class="brand-logo" />
       </a>
 
-      <!-- Three-dot menu toggle (right side) -->
-      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu-panel">
+      <!-- Three-dot (ellipsis) toggle on right -->
+      <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mt-menu">
         <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="5" cy="12" r="2" />
           <circle cx="12" cy="12" r="2" />
@@ -35,11 +35,13 @@
       </button>
 
       <!-- Dropdown panel -->
-      <div id="menu-panel" class="menu-panel" role="menu" aria-hidden="true">
-        <a class="menu-link" role="menuitem" href="https://templar.gold" target="_blank" rel="noopener">Templar.Gold</a>
-        <a class="menu-link" role="menuitem" href="https://uspolopatrons.org" target="_blank" rel="noopener">US Polo Patrons</a>
-        <a class="menu-sublink" role="menuitem" href="https://charlestonpoloclub.com" target="_blank" rel="noopener">Charleston Polo Club</a>
-      </div>
+      <nav id="mt-menu" class="mt-menu-panel" role="menu" aria-hidden="true">
+        <a class="mt-menu-link" role="menuitem" href="https://templer.gold" target="_blank" rel="noopener">templer.gold</a>
+        <a class="mt-menu-link" role="menuitem" href="https://uspolopatrons.org" target="_blank" rel="noopener">uspolopatrons.org</a>
+        <a class="mt-menu-link mt-menu-sub" role="menuitem" href="https://charlestonpoloclub.com" target="_blank" rel="noopener">Charleston&nbsp;Polo&nbsp;Club</a>
+      </nav>
+
+      <nav class="nav" aria-label="Primary"></nav>
     </div>
   </header>
 
@@ -69,37 +71,33 @@
     </section>
   </main>
 
-  <!-- Tiny script just for the dropdown menu -->
+  <!-- Tiny dropdown behavior (click toggle, click-away, ESC) -->
   <script>
     (function(){
-      const toggle = document.querySelector('.menu-toggle');
-      const panel  = document.getElementById('menu-panel');
+      const btn = document.querySelector('.menu-toggle');
+      const panel = document.getElementById('mt-menu');
 
       function openMenu(){
         panel.setAttribute('aria-hidden','false');
-        toggle.setAttribute('aria-expanded','true');
+        btn.setAttribute('aria-expanded','true');
         panel.classList.add('is-open');
-        document.addEventListener('click', onDocClick);
-        document.addEventListener('keydown', onKey);
       }
       function closeMenu(){
         panel.setAttribute('aria-hidden','true');
-        toggle.setAttribute('aria-expanded','false');
+        btn.setAttribute('aria-expanded','false');
         panel.classList.remove('is-open');
-        document.removeEventListener('click', onDocClick);
-        document.removeEventListener('keydown', onKey);
       }
-      function onDocClick(e){
-        if (!panel.contains(e.target) && !toggle.contains(e.target)) closeMenu();
-      }
-      function onKey(e){
-        if (e.key === 'Escape') closeMenu();
+      function toggleMenu(e){
+        e.stopPropagation();
+        if (panel.classList.contains('is-open')) closeMenu(); else openMenu();
       }
 
-      toggle.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        const open = panel.getAttribute('aria-hidden') === 'true';
-        open ? openMenu() : closeMenu();
+      btn.addEventListener('click', toggleMenu);
+      window.addEventListener('click', (e) => {
+        if (!panel.contains(e.target) && !btn.contains(e.target)) closeMenu();
+      });
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
       });
     })();
   </script>
