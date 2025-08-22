@@ -24,13 +24,25 @@
       <a class="brand" href="/" aria-label="Milites Templi home">
         <img src="headerlogo.png" alt="Milites Templi" class="brand-logo" />
       </a>
-      <button class="menu-toggle" aria-label="Menu" aria-expanded="false">
+
+      <!-- Existing ellipsis menu button (activated) -->
+      <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mt-menu">
         <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="5" cy="12" r="2" />
           <circle cx="12" cy="12" r="2" />
           <circle cx="19" cy="12" r="2" />
         </svg>
       </button>
+
+      <!-- Dropdown panel (right-aligned) -->
+      <div id="mt-menu" class="menu-panel" role="menu" aria-label="Site menu">
+        <ul class="menu-list">
+          <li><a class="menu-link" role="menuitem" href="https://templer.gold" target="_blank" rel="noopener">TEMPLER.GOLD</a></li>
+          <li><a class="menu-link" role="menuitem" href="https://uspolopatrons.org" target="_blank" rel="noopener">USPOLOPATRONS.ORG</a></li>
+          <li><a class="menu-link menu-subitem" role="menuitem" href="https://charlestonpoloclub.com" target="_blank" rel="noopener">Charleston Polo Club</a></li>
+        </ul>
+      </div>
+
       <nav class="nav" aria-label="Primary"></nav>
     </div>
   </header>
@@ -60,6 +72,41 @@
       </div>
     </section>
   </main>
+
+  <!-- Tiny inline menu JS: open/close, outside click, ESC -->
+  <script>
+    (function(){
+      var toggle = document.querySelector('.menu-toggle');
+      var panel  = document.getElementById('mt-menu');
+
+      function openMenu(){
+        panel.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeMenu(){
+        panel.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      function toggleMenu(e){
+        e.stopPropagation();
+        if (panel.classList.contains('is-open')) { closeMenu(); } else { openMenu(); }
+      }
+
+      toggle.addEventListener('click', toggleMenu);
+
+      // Close on outside click
+      document.addEventListener('click', function(e){
+        if (!panel.contains(e.target) && !toggle.contains(e.target)) {
+          closeMenu();
+        }
+      });
+
+      // Close on ESC
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') closeMenu();
+      });
+    })();
+  </script>
 
   <script src="script.js" defer></script>
 </body>
