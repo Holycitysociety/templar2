@@ -54,9 +54,64 @@ body{
 }
 .header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; position: relative; }
 .brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
-.menu-toggle{ background:transparent; border:none; padding:4px; cursor:pointer; color:var(--ink); position: relative; z-index: 2; }
+
+/* Menu toggle (in summary) */
+.menu-toggle{
+  background:transparent; border:none; padding:4px; cursor:pointer; color:var(--ink);
+  display:inline-flex; align-items:center; justify-content:center;
+  width:28px; height:28px;
+}
 .menu-icon{ width:18px; height:18px; fill: currentColor; }
-.nav{ display:none; }
+
+/* Hide default <summary> disclosure marker */
+.mt-dropdown summary { list-style: none; }
+.mt-dropdown summary::-webkit-details-marker { display: none; }
+
+/* Ensure dropdown sits on top and positions from header-right */
+.mt-dropdown{
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
+/* Dropdown panel */
+.mt-menu-panel{
+  position: absolute;
+  top: calc(100% + 8px); /* below the dots */
+  right: 0;
+  min-width: 200px;
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  padding: 6px;
+  display: none;
+  z-index: 9999; /* on top of everything */
+}
+
+/* Show panel when <details> is open */
+.mt-dropdown[open] .mt-menu-panel { display: block; }
+
+/* Links */
+.mt-menu-link{
+  display: block;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: var(--ink);
+  border-radius: 6px;
+  line-height: 1.2;
+}
+.mt-menu-link:hover{ background: rgba(0,0,0,.06); }
+
+/* Indented sub-link under USPPA */
+.mt-menu-sub{
+  padding-left: 26px;
+  opacity: .9;
+  font-size: .98em;
+}
 
 /* No outer gap; sections handle their own padding */
 #content{ padding-top: 0; }
@@ -73,19 +128,13 @@ body{
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* ===== HERO SECTION =====
-   - full viewport high
-   - logo lands at a viewport-relative offset (var(--hero-vpos))
-   - header height is accounted for so logo doesn't hide under it
-*/
+/* ===== HERO SECTION ===== */
 .hero{
   position: relative;
   height: 100vh;           /* full viewport */
   overflow: visible;
 }
 
-/* Anchor the logo at a viewport offset on initial load,
-   then it scrolls away naturally as a normal element. */
 .hero-anchor{
   position: absolute;
   left: 50%;
@@ -106,7 +155,6 @@ body{
 .section{
   min-height: 100vh;
   display:flex; align-items:center; justify-content:center;
-  /* transparent so background shows through */
 }
 
 /* Copyright section */
@@ -147,43 +195,8 @@ body{
   }
 }
 
-/* ====== DROPDOWN MENU (added) ====== */
-.mt-menu-panel{
-  position: absolute;
-  top: calc(var(--header-h-current) + 6px); /* sits just below header */
-  right: 8px;
-  min-width: 200px;
-  background: #ffffff;
-  color: var(--ink);
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 8px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.18);
-  padding: 6px;
-  display: none;
-  z-index: 9999; /* on top of everything */
-}
-.mt-menu-panel.is-open{ display:block; }
-
-.mt-menu-link{
-  display: block;
-  padding: 10px 12px;
-  text-decoration: none;
-  color: var(--ink);
-  border-radius: 6px;
-  line-height: 1.2;
-}
-.mt-menu-link:hover{ background: rgba(0,0,0,.06); }
-
-.mt-menu-sub{
-  padding-left: 26px;        /* indentation under USPPA */
-  opacity: .9;
-  font-size: .98em;
-}
-
-/* Keep the toggle tappable on small screens */
+/* Small screens: keep panel readable */
 @media (max-width: 480px){
-  .mt-menu-panel{
-    right: 6px;
-    min-width: 180px;
-  }
+  .mt-dropdown{ right: 6px; }
+  .mt-menu-panel{ min-width: 180px; }
 }
