@@ -25,21 +25,23 @@
         <img src="headerlogo.png" alt="Milites Templi" class="brand-logo" />
       </a>
 
-      <!-- Three-dot (ellipsis) toggle on right -->
-      <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mt-menu">
-        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="5" cy="12" r="2" />
-          <circle cx="12" cy="12" r="2" />
-          <circle cx="19" cy="12" r="2" />
-        </svg>
-      </button>
+      <!-- Native dropdown (no JS required) -->
+      <details class="mt-dropdown" role="listbox">
+        <summary class="menu-toggle" aria-label="Menu" aria-haspopup="true" aria-expanded="false">
+          <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="5" cy="12" r="2" />
+            <circle cx="12" cy="12" r="2" />
+            <circle cx="19" cy="12" r="2" />
+          </svg>
+        </summary>
 
-      <!-- Dropdown panel -->
-      <nav id="mt-menu" class="mt-menu-panel" role="menu" aria-hidden="true">
-        <a class="mt-menu-link" role="menuitem" href="https://templer.gold" target="_blank" rel="noopener">templer.gold</a>
-        <a class="mt-menu-link" role="menuitem" href="https://uspolopatrons.org" target="_blank" rel="noopener">uspolopatrons.org</a>
-        <a class="mt-menu-link mt-menu-sub" role="menuitem" href="https://charlestonpoloclub.com" target="_blank" rel="noopener">Charleston&nbsp;Polo&nbsp;Club</a>
-      </nav>
+        <nav class="mt-menu-panel" role="menu">
+          <a class="mt-menu-link" role="menuitem" href="https://templer.gold" target="_blank" rel="noopener">templer.gold</a>
+          <a class="mt-menu-link" role="menuitem" href="https://uspolopatrons.org" target="_blank" rel="noopener">uspolopatrons.org</a>
+          <a class="mt-menu-link mt-menu-sub" role="menuitem" href="https://charlestonpoloclub.com" target="_blank" rel="noopener">Charleston&nbsp;Polo&nbsp;Club</a>
+        </nav>
+      </details>
+      <!-- /dropdown -->
 
       <nav class="nav" aria-label="Primary"></nav>
     </div>
@@ -58,7 +60,7 @@
       </div>
     </section>
 
-    <!-- Your additional sections (examples/placeholders) -->
+    <!-- Additional sections (placeholders) -->
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
@@ -71,6 +73,7 @@
     </section>
   </main>
 
+  <!-- JS not required for menu; keep if you use it elsewhere -->
   <script src="script.js" defer></script>
 </body>
 </html>
