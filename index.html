@@ -58,7 +58,7 @@
       </div>
     </section>
 
-    <!-- Your additional sections (examples) -->
+    <!-- Your additional sections (examples/placeholders) -->
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
     <section class="section"><div class="container"></div></section>
@@ -70,37 +70,6 @@
       </div>
     </section>
   </main>
-
-  <!-- Tiny dropdown behavior (click toggle, click-away, ESC) -->
-  <script>
-    (function(){
-      const btn = document.querySelector('.menu-toggle');
-      const panel = document.getElementById('mt-menu');
-
-      function openMenu(){
-        panel.setAttribute('aria-hidden','false');
-        btn.setAttribute('aria-expanded','true');
-        panel.classList.add('is-open');
-      }
-      function closeMenu(){
-        panel.setAttribute('aria-hidden','true');
-        btn.setAttribute('aria-expanded','false');
-        panel.classList.remove('is-open');
-      }
-      function toggleMenu(e){
-        e.stopPropagation();
-        if (panel.classList.contains('is-open')) closeMenu(); else openMenu();
-      }
-
-      btn.addEventListener('click', toggleMenu);
-      window.addEventListener('click', (e) => {
-        if (!panel.contains(e.target) && !btn.contains(e.target)) closeMenu();
-      });
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeMenu();
-      });
-    })();
-  </script>
 
   <script src="script.js" defer></script>
 </body>
