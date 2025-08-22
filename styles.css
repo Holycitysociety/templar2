@@ -51,3 +51,139 @@ body{
   height: var(--header-h-desktop);
   display: flex; align-items: center;
   background: transparent;
+}
+.header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; position: relative; }
+.brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
+.menu-toggle{ background:transparent; border:none; padding:4px; cursor:pointer; color:var(--ink); position: relative; z-index: 2; }
+.menu-icon{ width:18px; height:18px; fill: currentColor; }
+.nav{ display:none; }
+
+/* No outer gap; sections handle their own padding */
+#content{ padding-top: 0; }
+
+/* ===== Parallax background ===== */
+#parallax-bg{
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: auto;
+  z-index: 0; /* under content, above html background */
+  will-change: transform;
+  pointer-events: none; user-select: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* ===== HERO SECTION =====
+   - full viewport high
+   - logo lands at a viewport-relative offset (var(--hero-vpos))
+   - header height is accounted for so logo doesn't hide under it
+*/
+.hero{
+  position: relative;
+  height: 100vh;           /* full viewport */
+  overflow: visible;
+}
+
+/* Anchor the logo at a viewport offset on initial load,
+   then it scrolls away naturally as a normal element. */
+.hero-anchor{
+  position: absolute;
+  left: 50%;
+  top: calc(var(--hero-vpos) + var(--header-h-current)); /* viewport position + header */
+  transform: translate(-50%, -50%);
+  display: flex; align-items: center; justify-content: center;
+  width: 100%;
+  pointer-events: none; /* logo is decorative; remove if you want it clickable */
+}
+
+.hero-logo{
+  width: min(92vw, 760px);
+  max-width: calc(100% - 32px);
+  height: auto; display:block;
+}
+
+/* Content sections (examples) */
+.section{
+  min-height: 100vh;
+  display:flex; align-items:center; justify-content:center;
+  /* transparent so background shows through */
+}
+
+/* Copyright section */
+.copyright-wrap{
+  min-height: 40vh;
+  display:flex; align-items:flex-end;
+  padding-bottom: 24px;
+}
+.copyright{
+  width: 100%;
+  text-align: center;
+  color: rgba(0,0,0,0.65);
+  margin: 0 auto;
+}
+
+/* ----- Orientation & mobile tweaks ----- */
+@media (orientation: portrait){
+  :root{
+    --header-h-current: var(--header-h-mobile);
+    --hero-vpos: var(--hero-vpos-portrait);
+  }
+  .site-header{ height: var(--header-h-mobile); }
+  .brand-logo{ height: var(--brand-logo-mobile); }
+}
+
+@media (orientation: landscape){
+  :root{
+    --header-h-current: var(--header-h-desktop);
+    --hero-vpos: var(--hero-vpos-landscape);
+  }
+}
+
+/* iOS safe areas */
+@supports(padding:max(0px)){
+  .site-header{
+    padding-left:max(env(safe-area-inset-left),0);
+    padding-right:max(env(safe-area-inset-right),0);
+  }
+}
+
+/* ====== DROPDOWN MENU (added) ====== */
+.mt-menu-panel{
+  position: absolute;
+  top: calc(var(--header-h-current) + 6px); /* sits just below header */
+  right: 8px;
+  min-width: 200px;
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+  padding: 6px;
+  display: none;
+  z-index: 9999; /* on top of everything */
+}
+.mt-menu-panel.is-open{ display:block; }
+
+.mt-menu-link{
+  display: block;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: var(--ink);
+  border-radius: 6px;
+  line-height: 1.2;
+}
+.mt-menu-link:hover{ background: rgba(0,0,0,.06); }
+
+.mt-menu-sub{
+  padding-left: 26px;        /* indentation under USPPA */
+  opacity: .9;
+  font-size: .98em;
+}
+
+/* Keep the toggle tappable on small screens */
+@media (max-width: 480px){
+  .mt-menu-panel{
+    right: 6px;
+    min-width: 180px;
+  }
+}
