@@ -25,8 +25,8 @@
         <img src="headerlogo.png" alt="Milites Templi" class="brand-logo" />
       </a>
 
-      <!-- Existing ellipsis menu button (activated) -->
-      <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="mt-menu">
+      <!-- Three-dot menu toggle (right side) -->
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="menu-panel">
         <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="5" cy="12" r="2" />
           <circle cx="12" cy="12" r="2" />
@@ -34,16 +34,12 @@
         </svg>
       </button>
 
-      <!-- Dropdown panel (right-aligned) -->
-      <div id="mt-menu" class="menu-panel" role="menu" aria-label="Site menu">
-        <ul class="menu-list">
-          <li><a class="menu-link" role="menuitem" href="https://templer.gold" target="_blank" rel="noopener">TEMPLER.GOLD</a></li>
-          <li><a class="menu-link" role="menuitem" href="https://uspolopatrons.org" target="_blank" rel="noopener">USPOLOPATRONS.ORG</a></li>
-          <li><a class="menu-link menu-subitem" role="menuitem" href="https://charlestonpoloclub.com" target="_blank" rel="noopener">Charleston Polo Club</a></li>
-        </ul>
+      <!-- Dropdown panel -->
+      <div id="menu-panel" class="menu-panel" role="menu" aria-hidden="true">
+        <a class="menu-link" role="menuitem" href="https://templar.gold" target="_blank" rel="noopener">Templar.Gold</a>
+        <a class="menu-link" role="menuitem" href="https://uspolopatrons.org" target="_blank" rel="noopener">US Polo Patrons</a>
+        <a class="menu-sublink" role="menuitem" href="https://charlestonpoloclub.com" target="_blank" rel="noopener">Charleston Polo Club</a>
       </div>
-
-      <nav class="nav" aria-label="Primary"></nav>
     </div>
   </header>
 
@@ -73,37 +69,37 @@
     </section>
   </main>
 
-  <!-- Tiny inline menu JS: open/close, outside click, ESC -->
+  <!-- Tiny script just for the dropdown menu -->
   <script>
     (function(){
-      var toggle = document.querySelector('.menu-toggle');
-      var panel  = document.getElementById('mt-menu');
+      const toggle = document.querySelector('.menu-toggle');
+      const panel  = document.getElementById('menu-panel');
 
       function openMenu(){
+        panel.setAttribute('aria-hidden','false');
+        toggle.setAttribute('aria-expanded','true');
         panel.classList.add('is-open');
-        toggle.setAttribute('aria-expanded', 'true');
+        document.addEventListener('click', onDocClick);
+        document.addEventListener('keydown', onKey);
       }
       function closeMenu(){
+        panel.setAttribute('aria-hidden','true');
+        toggle.setAttribute('aria-expanded','false');
         panel.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
+        document.removeEventListener('click', onDocClick);
+        document.removeEventListener('keydown', onKey);
       }
-      function toggleMenu(e){
-        e.stopPropagation();
-        if (panel.classList.contains('is-open')) { closeMenu(); } else { openMenu(); }
+      function onDocClick(e){
+        if (!panel.contains(e.target) && !toggle.contains(e.target)) closeMenu();
       }
-
-      toggle.addEventListener('click', toggleMenu);
-
-      // Close on outside click
-      document.addEventListener('click', function(e){
-        if (!panel.contains(e.target) && !toggle.contains(e.target)) {
-          closeMenu();
-        }
-      });
-
-      // Close on ESC
-      document.addEventListener('keydown', function(e){
+      function onKey(e){
         if (e.key === 'Escape') closeMenu();
+      }
+
+      toggle.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const open = panel.getAttribute('aria-hidden') === 'true';
+        open ? openMenu() : closeMenu();
       });
     })();
   </script>
