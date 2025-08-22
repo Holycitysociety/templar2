@@ -52,11 +52,54 @@ body{
   display: flex; align-items: center;
   background: transparent;
 }
-.header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; }
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between; width:100%;
+  position: relative; /* so the dropdown can anchor to the right */
+}
 .brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
 .menu-toggle{ background:transparent; border:none; padding:4px; cursor:pointer; color:var(--ink); }
 .menu-icon{ width:18px; height:18px; fill: currentColor; }
 .nav{ display:none; }
+
+/* Dropdown panel attached to the toggle (right side) */
+.menu-panel{
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 16px;
+  background: #ffffff;
+  color: var(--ink);
+  border: 1px solid rgba(0,0,0,0.08);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  min-width: 220px;
+  padding: 6px 0;
+  display: none;
+}
+.menu-panel.is-open{ display: block; }
+
+.menu-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.menu-link{
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.2;
+}
+.menu-link:hover{
+  background: rgba(0,0,0,0.04);
+}
+
+/* Indented subitem (Charleston Polo Club) */
+.menu-subitem{
+  padding-left: 28px;   /* simple visual indent */
+  font-size: 13.5px;
+  opacity: 0.9;
+}
 
 /* No outer gap; sections handle their own padding */
 #content{ padding-top: 0; }
@@ -133,16 +176,4 @@ body{
 }
 
 @media (orientation: landscape){
-  :root{
-    --header-h-current: var(--header-h-desktop);
-    --hero-vpos: var(--hero-vpos-landscape);
-  }
-}
-
-/* iOS safe areas */
-@supports(padding:max(0px)){
-  .site-header{
-    padding-left:max(env(safe-area-inset-left),0);
-    padding-right:max(env(safe-area-inset-right),0);
-  }
-}
+  :root
