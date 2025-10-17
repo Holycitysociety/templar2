@@ -200,3 +200,35 @@ body{
   .mt-dropdown{ right: 6px; }
   .mt-menu-panel{ min-width: 180px; }
 }
+
+.hero {
+  position: relative;
+  height: auto; /* let content push page length */
+  min-height: 100vh;
+  overflow: visible;
+}
+
+#parallax-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+/* ===== Allow long content to scroll ===== */
+main {
+  overflow-y: visible;
+  min-height: 200vh; /* ensure tall content renders fully */
+}
+
+body {
+  overflow-y: auto;
+}
+
+.litany-section {
+  padding: 4rem 1rem;
+  background: #fff;
+  color: var(--ink);
+  overflow: visible;
+}
