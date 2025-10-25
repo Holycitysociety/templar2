@@ -322,3 +322,83 @@ body {
   background: #f9f8f4;
 }
 */
+/* ===== Unified Canonical Page Typography ===== */
+
+/* Overall text rhythm */
+.litany-section {
+  background: #fff;
+  color: var(--ink);
+  padding: 3rem 1.25rem;
+}
+
+/* Shared text container */
+.litany-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Titles (same tone as vow heading) */
+.litany-title {
+  font-family: 'Uncial Antiqua', serif;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 2.25rem;
+  letter-spacing: 0.02em;
+}
+
+/* Subheads */
+.litany-wrap h3 {
+  font-family: 'Uncial Antiqua', serif;
+  font-weight: 400;
+  font-size: 1.15rem;
+  margin: 2rem 0 1rem;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+
+/* Paragraphs – use a single classic serif */
+.litany-wrap p,
+.litany-wrap ul,
+.litany-wrap ol {
+  font-family: "Cochin", "EB Garamond", "Times New Roman", serif;
+  font-size: 1.04rem;
+  line-height: 1.65;
+  color: #1d1d1f;
+  margin: 0 0 1.2rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Latin / quotes */
+.latin,
+.litany-wrap em {
+  font-family: 'Uncial Antiqua', serif;
+  font-style: normal;
+  letter-spacing: 0.03em;
+  color: #222;
+}
+
+/* Lists spacing */
+.litany-wrap ul,
+.litany-wrap ol {
+  margin: 1rem 1.25rem 1.5rem;
+  padding-left: 1.25rem;
+}
+
+/* Thin divider between long sections */
+.litany-section + .litany-section {
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* Visual breathing for FAQ questions */
+.litany-wrap h3 + p {
+  margin-top: 0.75rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .litany-title { font-size: 1.25rem; margin-bottom: 1.5rem; }
+  .litany-wrap h3 { font-size: 1.05rem; }
+  .litany-wrap p { font-size: 1rem; line-height: 1.55; }
+}
