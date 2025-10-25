@@ -1,73 +1,73 @@
 :root{
   --container: 1200px;
-
-  /* Header sizes */
   --header-h-desktop: 56px;
   --header-h-mobile: 56px;
-
-  /* Header logo sizes */
   --brand-logo-desktop: 24px;
-  --brand-logo-mobile: 14px; /* ~40% smaller on mobile */
-
-  /* Colors */
-  --fabric-offwhite: #f5f3ec; /* overscroll/top */
+  --brand-logo-mobile: 14px;
+  --fabric-offwhite: #f5f3ec;
   --ink: #1d1d1f;
-
-  /* Hero viewport-relative landing positions */
-  --hero-vpos-portrait: 17vh;   /* ~one third from top */
-  --hero-vpos-landscape: 50vh;  /* centered */
-
-  /* Current header height and vpos (set per orientation below) */
+  --hero-vpos-portrait: 17vh;
+  --hero-vpos-landscape: 50vh;
   --header-h-current: var(--header-h-desktop);
   --hero-vpos: var(--hero-vpos-landscape);
 }
 
-/* Base/reset */
+/* ===== Base ===== */
 *{ box-sizing: border-box; }
 
-/* Overscroll color lives on html; body is transparent so bg image shows */
 html{
   margin: 0; padding: 0;
   background: var(--fabric-offwhite);
 }
+
 body{
   margin: 0; padding: 0;
   background: transparent;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  font-family: "Cochin", "EB Garamond", "Times New Roman", serif;
   color: var(--ink);
   line-height: 1.45;
   min-height: 100svh;
+  overflow-y: auto;
 }
 
-/* Foreground layer (header + main) sits above the bg image */
 .page-layer{ position: relative; z-index: 1; }
 
-/* Container */
-.container{ width:100%; max-width:var(--container); margin:0 auto; padding:0 16px; }
+.container{
+  width:100%; max-width:var(--container);
+  margin:0 auto; padding:0 16px;
+}
 
-/* Fixed, transparent header */
+/* ===== Header ===== */
 .site-header{
   position: fixed; top:0; left:0; right:0;
   height: var(--header-h-desktop);
   display: flex; align-items: center;
   background: transparent;
 }
-.header-inner{ display:flex; align-items:center; justify-content:space-between; width:100%; position: relative; }
-.brand-logo{ height: var(--brand-logo-desktop); width:auto; display:block; }
 
-/* Menu toggle (in summary) */
+.header-inner{
+  display:flex; align-items:center;
+  justify-content:space-between;
+  width:100%; position: relative;
+}
+
+.brand-logo{
+  height: var(--brand-logo-desktop);
+  width:auto; display:block;
+}
+
 .menu-toggle{
-  background:transparent; border:none; padding:4px; cursor:pointer; color:var(--ink);
+  background:transparent; border:none;
+  padding:4px; cursor:pointer; color:var(--ink);
   display:inline-flex; align-items:center; justify-content:center;
   width:28px; height:28px;
 }
+
 .menu-icon{ width:18px; height:18px; fill: currentColor; }
 
-/* Hide default <summary> disclosure marker */
 .mt-dropdown summary { list-style: none; }
 .mt-dropdown summary::-webkit-details-marker { display: none; }
 
-/* Ensure dropdown sits on top and positions from header-right */
 .mt-dropdown{
   position: absolute;
   right: 8px;
@@ -76,10 +76,9 @@ body{
   z-index: 3;
 }
 
-/* Dropdown panel */
 .mt-menu-panel{
   position: absolute;
-  top: calc(100% + 8px); /* below the dots */
+  top: calc(100% + 8px);
   right: 0;
   min-width: 200px;
   background: #ffffff;
@@ -89,13 +88,10 @@ body{
   box-shadow: 0 10px 30px rgba(0,0,0,.18);
   padding: 6px;
   display: none;
-  z-index: 9999; /* on top of everything */
+  z-index: 9999;
 }
-
-/* Show panel when <details> is open */
 .mt-dropdown[open] .mt-menu-panel { display: block; }
 
-/* Links */
 .mt-menu-link{
   display: block;
   padding: 10px 12px;
@@ -106,43 +102,41 @@ body{
 }
 .mt-menu-link:hover{ background: rgba(0,0,0,.06); }
 
-/* Indented sub-link under USPPA */
 .mt-menu-sub{
   padding-left: 26px;
   opacity: .9;
   font-size: .98em;
 }
 
-/* No outer gap; sections handle their own padding */
+/* ===== Hero ===== */
 #content{ padding-top: 0; }
 
-/* ===== Parallax background ===== */
 #parallax-bg{
   position: fixed;
   top: 0; left: 0;
-  width: 100vw;
-  height: auto;
-  z-index: 0; /* under content, above html background */
+  width: 100vw; height: 100vh;
+  object-fit: cover;
+  z-index: 0;
   will-change: transform;
-  pointer-events: none; user-select: none;
+  pointer-events: none;
+  user-select: none;
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* ===== HERO SECTION ===== */
 .hero{
   position: relative;
-  height: 100vh;           /* full viewport */
+  min-height: 100vh;
   overflow: visible;
 }
 
 .hero-anchor{
   position: absolute;
   left: 50%;
-  top: calc(var(--hero-vpos) + var(--header-h-current)); /* viewport position + header */
+  top: calc(var(--hero-vpos) + var(--header-h-current));
   transform: translate(-50%, -50%);
   display: flex; align-items: center; justify-content: center;
   width: 100%;
-  pointer-events: none; /* logo is decorative; remove if you want it clickable */
+  pointer-events: none;
 }
 
 .hero-logo{
@@ -151,13 +145,73 @@ body{
   height: auto; display:block;
 }
 
-/* Content sections (examples) */
-.section{
-  min-height: 100vh;
-  display:flex; align-items:center; justify-content:center;
+/* ===== Litany & Canonical Sections ===== */
+.litany-section {
+  padding: 3rem 1.25rem;
+  background: #fff;
+  color: var(--ink);
+  overflow: visible;
 }
 
-/* Copyright section */
+.litany-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Titles and subheads (Uncial only here) */
+.litany-title {
+  font-family: 'Uncial Antiqua', serif;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 2.25rem;
+  letter-spacing: 0.02em;
+}
+
+.litany-wrap h3 {
+  font-family: 'Uncial Antiqua', serif;
+  font-weight: 400;
+  font-size: 1.15rem;
+  margin: 2rem 0 1rem;
+  text-align: center;
+  letter-spacing: 0.03em;
+  text-transform: none;
+}
+
+/* Paragraphs */
+.litany-wrap p,
+.litany-wrap ul,
+.litany-wrap ol {
+  font-family: "Cochin", "EB Garamond", "Times New Roman", serif;
+  font-size: 1.04rem;
+  line-height: 1.65;
+  color: #1d1d1f;
+  margin: 0 0 1.2rem;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Latin & emphasis */
+.latin,
+.litany-wrap em {
+  font-family: 'Uncial Antiqua', serif;
+  font-style: normal;
+  letter-spacing: 0.03em;
+  color: #222;
+}
+
+/* Lists */
+.litany-wrap ul,
+.litany-wrap ol {
+  margin: 1rem 1.25rem 1.5rem;
+  padding-left: 1.25rem;
+}
+.litany-wrap li { margin-bottom: 0.5rem; }
+
+.litany-section + .litany-section {
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* ===== Copyright ===== */
 .copyright-wrap{
   min-height: 40vh;
   display:flex; align-items:flex-end;
@@ -170,7 +224,7 @@ body{
   margin: 0 auto;
 }
 
-/* ----- Orientation & mobile tweaks ----- */
+/* ===== Responsive Tweaks ===== */
 @media (orientation: portrait){
   :root{
     --header-h-current: var(--header-h-mobile);
@@ -187,7 +241,6 @@ body{
   }
 }
 
-/* iOS safe areas */
 @supports(padding:max(0px)){
   .site-header{
     padding-left:max(env(safe-area-inset-left),0);
@@ -195,210 +248,12 @@ body{
   }
 }
 
-/* Small screens: keep panel readable */
-@media (max-width: 480px){
-  .mt-dropdown{ right: 6px; }
-  .mt-menu-panel{ min-width: 180px; }
-}
-
-.hero {
-  position: relative;
-  height: auto; /* let content push page length */
-  min-height: 100vh;
-  overflow: visible;
-}
-
-#parallax-bg {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
-
-/* ===== Allow long content to scroll ===== */
-main {
-  overflow-y: visible;
-  min-height: 200vh; /* ensure tall content renders fully */
-}
-
-body {
-  overflow-y: auto;
-}
-
-.litany-section {
-  padding: 4rem 1rem;
-  background: #fff;
-  color: var(--ink);
-  overflow: visible;
-}
-
-/* ===== Canonical Sections Refinements ===== */
-
-/* Section title headers */
-.litany-wrap h3 {
-  font-family: 'Uncial Antiqua', serif;
-  font-size: 1.25rem;
-  text-transform: uppercase;
-  margin: 2rem 0 1rem;
-  text-align: center;
-  letter-spacing: 0.5px;
-}
-
-/* Paragraph text — scholarly readability */
-.litany-wrap p {
-  font-family: "Cochin", "Times New Roman", Times, serif;
-  font-size: 1.02rem;
-  line-height: 1.65;
-  margin: 0 0 1.15rem;
-  color: #1d1d1f;
-  text-align: justify;
-  text-justify: inter-word;
-}
-
-/* Latin emphasis inside text */
-.litany-wrap em {
-  font-family: 'Uncial Antiqua', serif;
-  font-style: normal;
-  letter-spacing: 0.3px;
-}
-
-/* Ordered and unordered lists for papal bulls or defects */
-.litany-wrap ul,
-.litany-wrap ol {
-  margin: 1rem 1.5rem 1.5rem;
-  padding-left: 1.5rem;
-  font-family: "Cochin", "Times New Roman", Times, serif;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-.litany-wrap li {
-  margin-bottom: 0.5rem;
-}
-
-/* Latin summary lines */
-.latin strong {
-  font-family: 'Uncial Antiqua', serif;
-  font-weight: 400;
-}
-
-/* Section divider styling */
-.litany-section + .litany-section {
-  border-top: 1px solid rgba(0,0,0,0.1);
-}
-
-/* Blockquote-style pull quotes (for later use if needed) */
-.litany-wrap blockquote {
-  margin: 2rem 0;
-  padding: 1rem 1.5rem;
-  border-left: 3px solid rgba(0,0,0,0.25);
-  background: rgba(245,243,236,0.55);
-  font-family: "Cochin", "Times New Roman", Times, serif;
-  font-style: italic;
-  color: #222;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .litany-wrap h3 {
-    font-size: 1.12rem;
-    margin: 1.5rem 0 0.75rem;
-  }
-
-  .litany-wrap p {
-    font-size: 0.98rem;
-    line-height: 1.55;
-  }
-
-  .litany-wrap ul,
-  .litany-wrap ol {
-    margin: 0.75rem 1rem 1.25rem;
-  }
-}
-
-/* Optional subtle background for canonical sections (toggle on if desired)
-.litany-section:nth-of-type(odd) {
-  background: #f9f8f4;
-}
-*/
-/* ===== Unified Canonical Page Typography ===== */
-
-/* Overall text rhythm */
-.litany-section {
-  background: #fff;
-  color: var(--ink);
-  padding: 3rem 1.25rem;
-}
-
-/* Shared text container */
-.litany-wrap {
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-/* Titles (same tone as vow heading) */
-.litany-title {
-  font-family: 'Uncial Antiqua', serif;
-  font-size: 1.4rem;
-  text-align: center;
-  margin-bottom: 2.25rem;
-  letter-spacing: 0.02em;
-}
-
-/* Subheads */
-.litany-wrap h3 {
-  font-family: 'Uncial Antiqua', serif;
-  font-weight: 400;
-  font-size: 1.15rem;
-  margin: 2rem 0 1rem;
-  text-align: center;
-  letter-spacing: 0.03em;
-  text-transform: none;
-}
-
-/* Paragraphs – use a single classic serif */
-.litany-wrap p,
-.litany-wrap ul,
-.litany-wrap ol {
-  font-family: "Cochin", "EB Garamond", "Times New Roman", serif;
-  font-size: 1.04rem;
-  line-height: 1.65;
-  color: #1d1d1f;
-  margin: 0 0 1.2rem;
-  text-align: justify;
-  text-justify: inter-word;
-}
-
-/* Latin / quotes */
-.latin,
-.litany-wrap em {
-  font-family: 'Uncial Antiqua', serif;
-  font-style: normal;
-  letter-spacing: 0.03em;
-  color: #222;
-}
-
-/* Lists spacing */
-.litany-wrap ul,
-.litany-wrap ol {
-  margin: 1rem 1.25rem 1.5rem;
-  padding-left: 1.25rem;
-}
-
-/* Thin divider between long sections */
-.litany-section + .litany-section {
-  border-top: 1px solid rgba(0,0,0,0.08);
-}
-
-/* Visual breathing for FAQ questions */
-.litany-wrap h3 + p {
-  margin-top: 0.75rem;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
+@media (max-width: 768px){
   .litany-title { font-size: 1.25rem; margin-bottom: 1.5rem; }
   .litany-wrap h3 { font-size: 1.05rem; }
   .litany-wrap p { font-size: 1rem; line-height: 1.55; }
+  .litany-wrap ul,
+  .litany-wrap ol { margin: 0.75rem 1rem 1.25rem; }
+  .mt-dropdown{ right: 6px; }
+  .mt-menu-panel{ min-width: 180px; }
 }
