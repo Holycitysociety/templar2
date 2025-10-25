@@ -232,3 +232,93 @@ body {
   color: var(--ink);
   overflow: visible;
 }
+
+/* ===== Canonical Sections Refinements ===== */
+
+/* Section title headers */
+.litany-wrap h3 {
+  font-family: 'Uncial Antiqua', serif;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  margin: 2rem 0 1rem;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Paragraph text — scholarly readability */
+.litany-wrap p {
+  font-family: "Cochin", "Times New Roman", Times, serif;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  margin: 0 0 1.15rem;
+  color: #1d1d1f;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Latin emphasis inside text */
+.litany-wrap em {
+  font-family: 'Uncial Antiqua', serif;
+  font-style: normal;
+  letter-spacing: 0.3px;
+}
+
+/* Ordered and unordered lists for papal bulls or defects */
+.litany-wrap ul,
+.litany-wrap ol {
+  margin: 1rem 1.5rem 1.5rem;
+  padding-left: 1.5rem;
+  font-family: "Cochin", "Times New Roman", Times, serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.litany-wrap li {
+  margin-bottom: 0.5rem;
+}
+
+/* Latin summary lines */
+.latin strong {
+  font-family: 'Uncial Antiqua', serif;
+  font-weight: 400;
+}
+
+/* Section divider styling */
+.litany-section + .litany-section {
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Blockquote-style pull quotes (for later use if needed) */
+.litany-wrap blockquote {
+  margin: 2rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid rgba(0,0,0,0.25);
+  background: rgba(245,243,236,0.55);
+  font-family: "Cochin", "Times New Roman", Times, serif;
+  font-style: italic;
+  color: #222;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .litany-wrap h3 {
+    font-size: 1.12rem;
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  .litany-wrap p {
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+
+  .litany-wrap ul,
+  .litany-wrap ol {
+    margin: 0.75rem 1rem 1.25rem;
+  }
+}
+
+/* Optional subtle background for canonical sections (toggle on if desired)
+.litany-section:nth-of-type(odd) {
+  background: #f9f8f4;
+}
+*/
