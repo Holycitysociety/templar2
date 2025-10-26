@@ -48,6 +48,36 @@
       display: block;
       margin: 0 0 1rem 1.25rem;
     }
+    /* Scroll cue and hero height fix for iOS Safari */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  position: relative;
+  padding-bottom: max(32px, env(safe-area-inset-bottom) + 24px);
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(env(safe-area-inset-bottom) + 16px);
+  text-decoration: none;
+  color: var(--ink, #111);
+  font-family: "Cochin", "Times New Roman", Times, serif;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.85;
+}
+
+.scroll-cue svg {
+  width: 18px;
+  height: 18px;
+}
+
+html { scroll-behavior: smooth; }
   </style>
 </head>
 <body>
