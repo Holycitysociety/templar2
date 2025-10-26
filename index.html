@@ -13,72 +13,53 @@
   <link rel="preload" href="logo.png" as="image" />
   <link rel="preload" href="background.png" as="image" />
 
+  <!-- External CSS (kept) -->
   <link rel="stylesheet" href="styles.css" />
 
   <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
 
   <style>
-    .litany-section {
-      background: #fff;
-      color: var(--ink);
-      padding: 2rem 1rem;
+    /* ---------- Your existing inline styles (kept) ---------- */
+    .litany-section { background:#fff; color:var(--ink); padding:2rem 1rem; }
+    .litany-wrap { max-width:720px; margin:0 auto; }
+    .litany-title { font-family:'Uncial Antiqua',serif; font-size:1.3rem; text-align:center; margin-bottom:2rem; }
+    .latin { font-family:'Uncial Antiqua',serif; font-size:1.08rem; line-height:1.55; display:block; margin:0 0 .25rem; }
+    .english { font-family:"Cochin","Times New Roman",Times,serif; font-style:italic; font-size:1.02rem; line-height:1.55; display:block; margin:0 0 1rem 1.25rem; }
+
+    /* Hero uses visible viewport height on iOS */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      position: relative;
+      padding-bottom: max(32px, env(safe-area-inset-bottom) + 24px);
     }
-    .litany-wrap {
-      max-width: 720px;
-      margin: 0 auto;
-    }
-    .litany-title {
-      font-family: 'Uncial Antiqua', serif;
-      font-size: 1.3rem;
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .latin {
-      font-family: 'Uncial Antiqua', serif;
-      font-size: 1.08rem;
-      line-height: 1.55;
-      display: block;
-      margin: 0 0 0.25rem;
-    }
-    .english {
+
+    /* ---------- SCROLL CUE (FINAL, RED & BULLETPROOF) ---------- */
+    .scroll-cue {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(env(safe-area-inset-bottom) + 16px);
+      text-decoration: none;
+      color: #cc0000 !important; /* force bright red */
       font-family: "Cochin", "Times New Roman", Times, serif;
-      font-style: italic;
-      font-size: 1.02rem;
-      line-height: 1.55;
-      display: block;
-      margin: 0 0 1rem 1.25rem;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.9;
     }
-    /* Scroll cue and hero height fix for iOS Safari */
-.hero {
-  min-height: 100svh;
-  display: grid;
-  place-items: center;
-  position: relative;
-  padding-bottom: max(32px, env(safe-area-inset-bottom) + 24px);
-}
+    /* Make the SVG inherit the link color, regardless of external CSS */
+    .scroll-cue svg,
+    .scroll-cue svg *,
+    .scroll-cue path {
+      fill: currentColor !important;
+      stroke: currentColor !important;
+    }
+    .scroll-cue svg { width: 18px; height: 18px; }
 
-.scroll-cue {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: calc(env(safe-area-inset-bottom) + 16px);
-  text-decoration: none;
-  
-  color: #cc0000;
-  font-family: "Cochin", "Times New Roman", Times, serif;
-  font-size: 0.95rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  opacity: 0.85;
-}
-
-.scroll-cue svg {
-  width: 18px;
-  height: 18px;
-}
-
-html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
   </style>
 </head>
 <body>
@@ -111,22 +92,19 @@ html { scroll-behavior: smooth; }
   <img src="background.png" alt="" id="parallax-bg" aria-hidden="true" />
 
   <main id="content" class="page-layer">
-   
     <section class="hero">
-  <div class="hero-anchor">
-    <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
-  </div>
+      <div class="hero-anchor">
+        <img src="logo.png" alt="Milites Templi crest" class="hero-logo" />
+      </div>
 
-  <!-- scroll cue -->
-  <a href="#litany" class="scroll-cue" aria-label="Scroll to content">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M12 16l-6-6h12z"/>
-    </svg>
-    <span>scroll</span>
-  </a>
-</section>
-    
-    
+      <!-- scroll cue (red is handled by CSS above; inline style added as extra insurance) -->
+      <a href="#litany" class="scroll-cue" aria-label="Scroll to content">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" style="fill: currentColor; stroke: currentColor;">
+          <path d="M12 16l-6-6h12z"></path>
+        </svg>
+        <span>scroll</span>
+      </a>
+    </section>
     
 
     <!-- LITANY SECTION -->
