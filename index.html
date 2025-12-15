@@ -27,7 +27,6 @@
   <header class="site-header page-layer" role="banner">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label="Milites Templi home">
-        <!-- add width/height to reduce layout shift (adjust if you know exact pixels) -->
         <img src="headerlogo.png" alt="Milites Templi" class="brand-logo" width="180" height="48" />
       </a>
 
@@ -56,16 +55,50 @@
   <main id="content" class="page-layer">
     <section class="hero">
       <div class="hero-anchor">
-        <!-- add width/height to reduce layout shift (adjust if you know exact pixels) -->
-        <img src="logo.png" alt="Milites Templi crest" class="hero-logo" width="760" height="760" fetchpriority="high" decoding="async" />
+        <img
+          src="logo.png"
+          alt="Milites Templi crest"
+          class="hero-logo"
+          width="760"
+          height="760"
+          fetchpriority="high"
+          decoding="async"
+        />
       </div>
 
-      <a href="#litany" class="scroll-cue" aria-label="Scroll to content">
+      <!-- Scroll cue now lands on the intro -->
+      <a href="#prooemium" class="scroll-cue" aria-label="Scroll to introduction">
         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M12 16l-6-6h12z"></path>
         </svg>
         <span>scroll</span>
       </a>
+    </section>
+
+    <!-- PROOEMIUM (INTRO) -->
+    <section class="litany-section prooemium" id="prooemium">
+      <div class="litany-wrap">
+        <div class="litany-title">PROOEMIUM</div>
+
+        <p>
+          What follows is a <strong>litany and profession of perpetual vows</strong> dated
+          <strong>Friday, 13 June 2025</strong>, by which the
+          <strong>Ordo Pauperum Commilitonum Christi Templique Salomonici</strong> is
+          <strong>resumed under ancient canon law</strong> <em>vi consuetudinis immemorabilis</em>,
+          <em>sub gravi necessitate</em>, and <em>in absentia auctoritatis competentis</em>, and made
+          <strong>sub obedientia Romani Pontificis</strong>.
+        </p>
+
+        <p>
+          The sections that follow set out the canonical grounds invoked: that the privileges of
+          <strong>Omne Datum Optimum</strong> (1139), <strong>Milites Templi</strong> (1144), and
+          <strong>Militia Dei</strong> (1145) remain in force; that the
+          <strong>Chinon Parchment</strong> (1308) confirmed absolution and reconciliation; that the
+          <strong>1312 suppression</strong> is treated as null by cumulative defects (name, cause,
+          form, liberty); and that, under the <strong>1983 Code</strong>, the Order is presently
+          understood as a <strong>private association of the faithful</strong> (cc. 215, 298–299).
+        </p>
+      </div>
     </section>
 
     <!-- LITANY SECTION -->
@@ -181,7 +214,6 @@
         <span class="latin">Hoc actum, donum Spiritus Sancti, per intercessionem Sancti Antonii Patavini. Oblata, sine ira aut maerore, sed in spiritu pacis.</span>
         <span class="english">This act, a gift of the Holy Spirit, through the intercession of Saint Anthony of Padua. Offered without anger or sorrow, but in the spirit of peace.</span>
 
-        <!-- FIXED: Chinon section (no nested/unclosed spans) -->
         <span class="latin">
           Chinon Parchmentum, iussu Papae Clementis Quinti, anno Domini trecentesimo octavo,
           post inquisitionem et confessionem emissum, absolutionem Ordinis eiusque reconciliationem
@@ -201,7 +233,7 @@
       </div>
     </section>
 
-    <!-- ABOUT & CANONICAL STATUS SECTION -->
+    <!-- ABOUT & CANONICAL STATUS SECTION (unchanged) -->
     <section class="litany-section canon">
       <div class="litany-wrap">
         <div class="litany-title">CANONICAL AND JURIDICAL STATUS</div>
@@ -229,10 +261,9 @@
           Founded upon apostolic privilege and immemorial law, the Order stands juridically complete within its own canonical epoch. Its legitimacy persists independently of later codifications, acting <strong>in bono Ecclesiae</strong> (for the good of the universal Church) while not confined to any single rite or jurisdiction. By this continuity the <strong>Milites Templi</strong> serves as a catholic instrument in the original sense—ordered toward unity in faith and charity—welcoming collaboration with all who confess Christ while preserving its Latin and sacramental patrimony.
         </p>
 
-        <p>
-          <strong>Historically:</strong> Lawfully reactivated continuation of the medieval Order.<br>
-          <strong>Canonically:</strong> Complete under ancient law, legitimate under the current Code.<br>
-          <strong>Ecclesially:</strong> <strong>praeter legem sed non contra legem</strong> (beyond the law but not against it).
+        <p><strong>Historically:</strong> Lawfully reactivated continuation of the medieval Order.<br>
+           <strong>Canonically:</strong> Complete under ancient law, legitimate under the current Code.<br>
+           <strong>Ecclesially:</strong> <strong>praeter legem sed non contra legem</strong> (beyond the law but not against it).
         </p>
       </div>
     </section>
@@ -281,7 +312,7 @@
       </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- FAQ / RESPONSIONES -->
     <section class="litany-section canon">
       <div class="litany-wrap">
         <div class="litany-title">RESPONSIONES AD OBJECTIONES</div>
@@ -316,9 +347,7 @@
           Yes. Acting <strong>in bonum Ecclesiae universalis</strong> (for the good of the universal Church), the Order may cooperate in works of charity and defense of the faith with all who confess Christ, while preserving its Latin and sacramental heritage.
         </p>
 
-        <p>
-          <strong>Summary:</strong> Historically—valid continuation. Canonically—complete under ancient law. Ecclesially—<strong>praeter legem sed non contra legem</strong>. Spiritually—renewal <strong>ad gloriam Dei et defensionem fidei</strong> (to the glory of God and the defense of the faith).
-        </p>
+        <p><strong>Summary:</strong> Historically—valid continuation. Canonically—complete under ancient law. Ecclesially—<strong>praeter legem sed non contra legem</strong>. Spiritually—renewal <strong>ad gloriam Dei et defensionem fidei</strong> (to the glory of God and the defense of the faith).</p>
       </div>
     </section>
   </main>
