@@ -39,6 +39,7 @@ body{
 }
 
 /* Ensure anchor targets don't hide under fixed header */
+#prooemium,
 #litany{ scroll-margin-top: calc(var(--header-h-current) + 18px); }
 
 /* ===== Header ===== */
@@ -173,7 +174,6 @@ body{
   opacity: 0.9;
 }
 
-/* Make the SVG inherit link color regardless of other styles */
 .scroll-cue svg,
 .scroll-cue svg *,
 .scroll-cue path{
@@ -227,7 +227,7 @@ body{
   text-justify: inter-word;
 }
 
-/* Span-based litany lines (your structure) */
+/* Span-based litany lines */
 .litany-wrap .latin{
   font-family: 'Uncial Antiqua', serif;
   font-style: normal;
@@ -248,7 +248,7 @@ body{
   margin: 0 0 1rem 1.25rem;
 }
 
-/* Keep em using Uncial (as you had) but don't force display/margins */
+/* Emphasis in Uncial (as you had) */
 .litany-wrap em{
   font-family: 'Uncial Antiqua', serif;
   font-style: normal;
@@ -265,19 +265,6 @@ body{
 
 .litany-section + .litany-section {
   border-top: 1px solid rgba(0,0,0,0.08);
-}
-
-/* ===== Copyright (optional if you add a footer later) ===== */
-.copyright-wrap{
-  min-height: 40vh;
-  display:flex; align-items:flex-end;
-  padding-bottom: 24px;
-}
-.copyright{
-  width: 100%;
-  text-align: center;
-  color: rgba(0,0,0,0.65);
-  margin: 0 auto;
 }
 
 /* ===== Responsive Tweaks ===== */
