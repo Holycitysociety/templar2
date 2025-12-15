@@ -38,8 +38,8 @@ body{
   margin:0 auto; padding:0 16px;
 }
 
-/* Ensure anchor targets don't hide under fixed header */
-#prooemium,
+/* Prevent anchors from hiding under the fixed header */
+#prooemium{ scroll-margin-top: calc(var(--header-h-current) + 18px); }
 #litany{ scroll-margin-top: calc(var(--header-h-current) + 18px); }
 
 /* ===== Header ===== */
@@ -248,7 +248,7 @@ body{
   margin: 0 0 1rem 1.25rem;
 }
 
-/* Emphasis in Uncial (as you had) */
+/* Keep em using Uncial */
 .litany-wrap em{
   font-family: 'Uncial Antiqua', serif;
   font-style: normal;
@@ -265,6 +265,23 @@ body{
 
 .litany-section + .litany-section {
   border-top: 1px solid rgba(0,0,0,0.08);
+}
+
+/* ===== PROOEMIUM: typography fix for mobile justify spacing ===== */
+.prooemium .litany-title { margin-bottom: 1.75rem; }
+
+.prooemium .litany-wrap p{
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+.latin-inline{
+  font-family: 'Uncial Antiqua', serif;
+  font-style: normal;
+  letter-spacing: 0.015em;
+  white-space: nowrap;
 }
 
 /* ===== Responsive Tweaks ===== */
