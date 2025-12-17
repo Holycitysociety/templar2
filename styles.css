@@ -228,7 +228,7 @@ body{
   text-justify: inter-word;
 }
 
-/* Span-based litany lines */
+/* Span-based vow/profession Latin blocks (UNCHANGED behavior) */
 .litany-wrap .latin{
   font-family: 'Uncial Antiqua', serif;
   font-style: normal;
@@ -271,7 +271,7 @@ body{
 /* ===== PROOEMIUM (fix Safari justify gaps + stop ugly hyphenation) ===== */
 .prooemium .litany-title { margin-bottom: 1.25rem; }
 
-/* Override the global justified paragraphs for Prooemium ONLY (mobile-safe) */
+/* Override global justification for Prooemium ONLY (prevents giant gaps on iOS) */
 .prooemium .litany-wrap p{
   text-align: left;
   text-justify: auto;
@@ -279,19 +279,19 @@ body{
   -webkit-hyphens: none;
 }
 
-/* Lead (logo-line): centered and clean */
+/* Lead (logo-line): centered */
 .prooemium .litany-wrap p.prooemium-lead{
   text-align: center;
   text-justify: auto;
   margin: 0 0 1.35rem;
 }
 
-/* Inline Latin phrases should NOT inherit the block .latin behavior */
+/* Inline Latin phrases inside paragraphs: ALLOW wrapping (does not affect vow blocks) */
 .latin-inline{
   font-family: 'Uncial Antiqua', serif;
   font-style: normal;
   letter-spacing: 0.015em;
-  white-space: nowrap;
+  white-space: normal; /* allow wrap */
 }
 
 /* Optional: bring back justification on wider screens only */
