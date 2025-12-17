@@ -215,7 +215,7 @@ body{
   text-transform: none;
 }
 
-/* Paragraphs */
+/* Paragraphs + lists default */
 .litany-wrap p,
 .litany-wrap ul,
 .litany-wrap ol {
@@ -268,20 +268,22 @@ body{
   border-top: 1px solid rgba(0,0,0,0.08);
 }
 
-/* ===== PROOEMIUM: tighter + fixes mobile justify spacing ===== */
+/* ===== PROOEMIUM (fix Safari justify gaps + stop ugly hyphenation) ===== */
 .prooemium .litany-title { margin-bottom: 1.25rem; }
 
+/* Override the global justified paragraphs for Prooemium ONLY (mobile-safe) */
+.prooemium .litany-wrap p{
+  text-align: left;
+  text-justify: auto;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
 /* Lead (logo-line): centered and clean */
-.prooemium-lead{
+.prooemium .litany-wrap p.prooemium-lead{
   text-align: center;
   text-justify: auto;
   margin: 0 0 1.35rem;
-}
-
-/* Body paragraphs: keep justified, but prevent ugly spacing/rivers */
-.prooemium .litany-wrap p{
-  hyphens: auto;
-  text-wrap: pretty;
 }
 
 /* Inline Latin phrases should NOT inherit the block .latin behavior */
@@ -290,6 +292,20 @@ body{
   font-style: normal;
   letter-spacing: 0.015em;
   white-space: nowrap;
+}
+
+/* Optional: bring back justification on wider screens only */
+@media (min-width: 900px){
+  .prooemium .litany-wrap p{
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+  .prooemium .litany-wrap p.prooemium-lead{
+    text-align: center;
+    text-justify: auto;
+  }
 }
 
 /* ===== Responsive Tweaks ===== */
