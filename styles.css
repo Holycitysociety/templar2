@@ -271,19 +271,12 @@ body{
 /* ===== PROOEMIUM (fix Safari justify gaps + stop ugly hyphenation) ===== */
 .prooemium .litany-title { margin-bottom: 1.25rem; }
 
-/* Override global justification for Prooemium ONLY (prevents giant gaps on iOS) */
+/* Override global justification for Prooemium ONLY */
 .prooemium .litany-wrap p{
   text-align: left;
   text-justify: auto;
   hyphens: none;
   -webkit-hyphens: none;
-}
-
-/* Lead (logo-line): centered */
-.prooemium .litany-wrap p.prooemium-lead{
-  text-align: center;
-  text-justify: auto;
-  margin: 0 0 1.35rem;
 }
 
 /* Inline Latin phrases inside paragraphs: ALLOW wrapping (does not affect vow blocks) */
@@ -301,10 +294,6 @@ body{
     text-justify: inter-word;
     hyphens: auto;
     -webkit-hyphens: auto;
-  }
-  .prooemium .litany-wrap p.prooemium-lead{
-    text-align: center;
-    text-justify: auto;
   }
 }
 
