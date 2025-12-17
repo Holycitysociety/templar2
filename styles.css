@@ -63,6 +63,7 @@ body{
 
 .menu-toggle{
   background:transparent;
+  border:none;
   padding:4px;
   cursor:pointer;
   color:var(--ink);
@@ -267,16 +268,23 @@ body{
   border-top: 1px solid rgba(0,0,0,0.08);
 }
 
-/* ===== PROOEMIUM: typography fix for mobile justify spacing ===== */
-.prooemium .litany-title { margin-bottom: 1.75rem; }
+/* ===== PROOEMIUM: tighter + fixes mobile justify spacing ===== */
+.prooemium .litany-title { margin-bottom: 1.25rem; }
 
+/* Lead (logo-line): centered and clean */
+.prooemium-lead{
+  text-align: center;
+  text-justify: auto;
+  margin: 0 0 1.35rem;
+}
+
+/* Body paragraphs: keep justified, but prevent ugly spacing/rivers */
 .prooemium .litany-wrap p{
-  text-align: justify;
-  text-justify: inter-word;
   hyphens: auto;
   text-wrap: pretty;
 }
 
+/* Inline Latin phrases should NOT inherit the block .latin behavior */
 .latin-inline{
   font-family: 'Uncial Antiqua', serif;
   font-style: normal;
