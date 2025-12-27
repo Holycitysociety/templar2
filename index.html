@@ -52,37 +52,24 @@
 
   <main id="content" class="page-layer">
     <!-- HERO -->
+    
     <section class="hero">
-      <!-- Background is scoped to HERO to avoid cross-device “fixed crop” drift -->
-      <img
-        src="background.png"
-        alt=""
-        class="hero-bg"
-        aria-hidden="true"
-        width="2000"
-        height="2600"
-        decoding="async"
-      />
+  <div class="hero-frame" aria-hidden="true">
+    <img src="background.png" alt="" class="hero-bg" />
+  </div>
 
-      <div class="hero-anchor">
-        <img
-          src="logo.png"
-          alt="Milites Templi crest"
-          class="hero-logo"
-          width="760"
-          height="760"
-          fetchpriority="high"
-          decoding="async"
-        />
-      </div>
+  <div class="hero-anchor">
+    <img src="logo.png" alt="Milites Templi crest" class="hero-logo" width="760" height="760" />
+  </div>
 
-      <a href="#prooemium" class="scroll-cue" aria-label="Scroll to content">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <path d="M12 16l-6-6h12z"></path>
-        </svg>
-        <span>scroll</span>
-      </a>
-    </section>
+  <a href="#prooemium" class="scroll-cue" aria-label="Scroll to content">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 16l-6-6h12z"></path>
+    </svg>
+    <span>scroll</span>
+  </a>
+</section>
+    
 
     <!-- PROOEMIUM (NOT CENTERED) -->
     <section class="litany-section prooemium" id="prooemium">
