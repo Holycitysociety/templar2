@@ -7,13 +7,14 @@
   --fabric-offwhite: #f5f3ec;
   --ink: #1d1d1f;
 
-  /* === HERO POSTER FRAME (stable across devices) ===
-     background.png is 2000x2600 per your HTML attributes */
-  --bg-w: 2000;
-  --bg-h: 2600;
+  /* HERO: stable cross-device alignment knobs */
+  --hero-logo-y-portrait: 34%;
+  --hero-logo-y-landscape: 45%;
+  --hero-logo-y: var(--hero-logo-y-landscape);
 
-  /* where the crest should sit inside the poster image */
-  --hero-logo-y: 32%;
+  --bg-pos-y-portrait: 18%;
+  --bg-pos-y-landscape: 26%;
+  --bg-pos-y: var(--bg-pos-y-landscape);
 
   --header-h-current: var(--header-h-desktop);
 }
@@ -54,6 +55,7 @@ body{
   height: var(--header-h-desktop);
   display: flex; align-items: center;
   background: transparent;
+  z-index: 10;
 }
 
 .header-inner{
@@ -124,76 +126,55 @@ body{
   font-size: .98em;
 }
 
-/* ===== Background =====
-   IMPORTANT: we are no longer using the fixed #parallax-bg as the hero background
-   because object-fit:cover forces device-dependent cropping.
-   Keep it in the HTML if you want, but hide it to avoid interference. */
-#parallax-bg{
-  display:none !important;
-}
-
 /* ===== Hero ===== */
 #content{ padding-top: 0; }
 
-/* We make the hero a stable “poster” that preserves the entire image */
 .hero{
   position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden; /* important: keeps background from bleeding */
   padding-top: var(--header-h-current);
-  display: grid;
-  place-items: center;
-  background: var(--fabric-offwhite);
   padding-bottom: max(32px, env(safe-area-inset-bottom) + 24px);
 }
 
-/* Poster frame: same aspect ratio everywhere */
-.hero::before{
-  content:"";
-  display:block;
-  width: min(100vw, 980px);
-  aspect-ratio: var(--bg-w) / var(--bg-h);
-  /* keep from exceeding viewport height too aggressively */
-  max-width: calc(100svh * (var(--bg-w) / var(--bg-h)));
-  background: transparent;
+/* Background image is scoped to hero (more consistent across devices than fixed) */
+.hero-bg{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% var(--bg-pos-y);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  image-rendering: -webkit-optimize-contrast;
 }
 
-/* Actual poster image drawn via background on hero */
-.hero{
-  background-image: url("background.png");
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: min(100vw, 980px) auto;
-}
-
-/* Because background-size with auto can be finicky, also constrain by height */
-@supports (background-size: contain){
-  .hero{
-    background-size: contain;
-    background-position: center top;
-  }
-}
-
-/* Crest overlay: positioned relative to the hero area */
 .hero-anchor{
   position: absolute;
   left: 50%;
-  top: calc(var(--hero-logo-y) + var(--header-h-current));
+  top: var(--hero-logo-y);
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   pointer-events: none;
+  z-index: 1;
 }
 
 .hero-logo{
   width: min(92vw, 760px);
   max-width: calc(100% - 32px);
-  height: auto; display:block;
+  height: auto;
+  display:block;
 }
 
 /* ===== SCROLL CUE (RED & BULLETPROOF) ===== */
 .scroll-cue{
-  position: fixed;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   bottom: calc(env(safe-area-inset-bottom) + 16px);
@@ -205,7 +186,7 @@ body{
   align-items: center;
   gap: 6px;
   opacity: 0.9;
-  z-index: 5;
+  z-index: 2;
 }
 
 .scroll-cue svg,
@@ -261,7 +242,7 @@ body{
   text-justify: inter-word;
 }
 
-/* Span-based vow/profession Latin blocks (KEEP AS-BLOCKS) */
+/* Span-based vow/profession Latin blocks (UNCHANGED behavior) */
 .litany-wrap .latin{
   font-family: 'Uncial Antiqua', serif;
   font-style: normal;
@@ -312,12 +293,13 @@ body{
   -webkit-hyphens: none;
 }
 
-/* Inline Latin phrases inside paragraphs: ALLOW wrapping (does not affect vow blocks) */
+/* Inline Latin phrases inside paragraphs: allow wrapping (does not affect vow blocks) */
 .latin-inline{
   font-family: 'Uncial Antiqua', serif;
   font-style: normal;
   letter-spacing: 0.015em;
   white-space: normal;
+  display: inline;
 }
 
 /* Optional: bring back justification on wider screens only */
@@ -334,21 +316,22 @@ body{
 @media (orientation: portrait){
   :root{
     --header-h-current: var(--header-h-mobile);
-    --hero-logo-y: 28%;
+
+    /* tune for phones */
+    --hero-logo-y: var(--hero-logo-y-portrait);
+    --bg-pos-y: var(--bg-pos-y-portrait);
   }
   .site-header{ height: var(--header-h-mobile); }
   .brand-logo{ height: var(--brand-logo-mobile); }
-
-  /* Give portrait screens a bit more room so the black band is visible */
-  .hero::before{
-    width: min(100vw, 820px);
-  }
 }
 
 @media (orientation: landscape){
   :root{
     --header-h-current: var(--header-h-desktop);
-    --hero-logo-y: 32%;
+
+    /* tune for tablets/desktop */
+    --hero-logo-y: var(--hero-logo-y-landscape);
+    --bg-pos-y: var(--bg-pos-y-landscape);
   }
 }
 
