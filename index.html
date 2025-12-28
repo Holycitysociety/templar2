@@ -50,30 +50,13 @@
     </div>
   </header>
 
+  <img src="background.png" alt="" id="parallax-bg" aria-hidden="true" width="2000" height="2600" />
+
   <main id="content" class="page-layer">
     <!-- HERO -->
     <section class="hero">
-      <!-- Background is scoped to HERO to avoid cross-device “fixed crop” drift -->
-      <img
-        src="background.png"
-        alt=""
-        class="hero-bg"
-        aria-hidden="true"
-        width="2000"
-        height="2600"
-        decoding="async"
-      />
-
       <div class="hero-anchor">
-        <img
-          src="logo.png"
-          alt="Milites Templi crest"
-          class="hero-logo"
-          width="760"
-          height="760"
-          fetchpriority="high"
-          decoding="async"
-        />
+        <img src="logo.png" alt="Milites Templi crest" class="hero-logo" width="760" height="760" fetchpriority="high" decoding="async" />
       </div>
 
       <a href="#prooemium" class="scroll-cue" aria-label="Scroll to content">
@@ -91,8 +74,9 @@
 
         <p>
           Milites Templi: the original military religious order—restored under ancient canon law
-          <span class="latin-inline">vi consuetudinis immemorabilis</span>
-          in communion of faith, divine worship,and discipline with the undivided Church, militant, suffering, and triumphant,
+          <span class="latin-inline">vi consuetudinis immemorabilis
+            
+             </span>in communion of faith, divine worship,and discipline with the undivided Church, militant and triumphant, 
           bearing apostolic and patristic patrimony and charism, for all baptized Christians.
         </p>
 
@@ -101,6 +85,8 @@
           <strong>Pauperes Commilitones Christi Templique Salomonici</strong> is resumed
           <span class="latin-inline">sub gravi necessitate</span> and
           <span class="latin-inline">in absentia auctoritatis competentis</span>.
+          
+          
           The supporting sections invoke the Order’s perpetual privileges
           (<strong>Omne Datum Optimum</strong> 1139; <strong>Milites Templi</strong> 1144; <strong>Militia Dei</strong> 1145),
           the Chinon absolution (1308), and the nullity of the 1312 suppression by cumulative defects (name, cause, form, liberty).
@@ -224,7 +210,7 @@
         <span class="latin">Chinon Parchmentum, iussu Papae Clementis Quinti, anno Domini trecentesimo octavo, post inquisitionem et confessionem emissum, absolutionem Ordinis eiusque reconciliationem cum Ecclesia confirmavit.</span>
         <span class="english">The Chinon Parchment, by command of Pope Clement V, in the year of Our Lord 1308, issued after inquest and confession, confirmed the absolution of the Order and its reconciliation with the Church.</span>
 
-        <span class="latin">Iura perpetuo concessa Pauperibus Commilitonibus Christi Templique Salomonici a Romano Episcopo, per bullas Omne Datum Optimum, Milites Templi, et Militia Dei, non in possessionem data sunt, sed tamquam sacrum depositum commendata. Nunc affirmamus, in pace et fidelitate, haec iura restitui, ac proclamamus: OMNE DATUM OPTIMUM redditur ad MILITES TEMPLI et MILITIA DEI</span>
+        <span class="latin">Iura perpetuo concessa Pauperibus Commilitonum Christi Templique Salomonici a Romano Episcopo, per bullas Omne Datum Optimum, Milites Templi, et Militia Dei, non in possessionem data sunt, sed tamquam sacrum depositum commendata. Nunc affirmamus, in pace et fidelitate, haec iura restitui, ac proclamamus: OMNE DATUM OPTIMUM redditur ad MILITES TEMPLI et MILITIA DEI</span>
         <span class="english">The rights perpetually granted to the Poor Commilitants of Christ and the Temple of Solomon by the Roman Pontiffs, through the bulls Omne Datum Optimum, Milites Templi, and Militia Dei, were not given into possession, but entrusted as a sacred deposit. Now we affirm, in peace and fidelity, that these rights are restored, and we proclaim: ALL PERFECT GIFTS are restored to the KNIGHTS OF THE TEMPLE and the MILITIA OF GOD.</span>
 
         <span class="latin">Itaque ritus professionis concluditur, sub signo Crucis. Fiat voluntas Dei. Fiat, fiat. Amen.</span>
@@ -244,6 +230,8 @@
         <p>
           By this act, performed <strong>sub gravi necessitate</strong> (under grave necessity) and <strong>in absentia auctoritatis competentis</strong> (in the absence of competent authority), the Order’s <strong>potestas propria</strong> (inherent authority) was canonically re-activated. It thereby stands juridically complete within its original canonical epoch, though presently uncategorized within the 1983 Code of Canon Law, which possesses no rubric for pre-codified apostolic institutions. The Order exists <strong>praeter legem sed non contra legem</strong> (beyond the scope of the current Code, yet not in opposition to it) and continues <strong>
             ad gloriam Dei, defensionem fidei et pauperis Ecclesiae militantis
+          
+          
           </strong> (to the glory of God, the defense of the faith and of the poor Church Militant)
         </p>
 
@@ -325,7 +313,10 @@
 
         <h3>Does this constitute disobedience to the Pope?</h3>
         <p>
+          
+          
           No. This restoration reaffirms the Order’s historical privileges—directly granted as a perpetual gift by the Roman Pontiff through bulls such as Omne Datum Optimum (1139), Milites Templi (1144), and Militia Dei (1145)—including immediate protection and tutelage of the Holy See. The act is undertaken in voluntary fidelity to the Catholic faith and in peace toward the successor of Peter.
+          
         </p>
 
         <h3>Why is the 1983 Code insufficient to define the Order?</h3>
@@ -352,5 +343,20 @@
       </div>
     </section>
   </main>
+
+  <!-- Header frosted overlay on scroll -->
+  <script>
+    (function () {
+      const header = document.querySelector('.site-header');
+      if (!header) return;
+
+      const onScroll = () => {
+        header.classList.toggle('is-scrolled', window.scrollY > 6);
+      };
+
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
 </body>
 </html>
